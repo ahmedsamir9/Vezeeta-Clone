@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back1"
+    tools:context=".RegisterPharmacyActivity">
+
+    <Button
+        android:id="@+id/Pharmacy_btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Pharmacy_phone1"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="30dp"
+        android:text="Register"
+        android:textSize="20sp"></Button>
+
+    <EditText
+        android:id="@+id/Pharmacy_Email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Pharmacy_Name"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="16dp"
+        android:hint="Pharmacy Email "
+        android:inputType="textEmailAddress"
+        android:textSize="20sp"></EditText>
+
+    <EditText
+        android:id="@+id/Pharmacy_Password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Pharmacy_Email"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="16dp"
+        android:hint="Password "
+        android:inputType="textPassword"
+        android:textSize="20sp"></EditText>
+
+    <EditText
+        android:id="@+id/Pharmacy_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Pharmacy_Password"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="16dp"
+        android:hint="Phone "
+        android:inputType="number|phone"
+        android:textSize="20sp"></EditText>
+
+    <EditText
+        android:id="@+id/Pharmacy_phone1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Pharmacy_phone"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="16dp"
+        android:hint="Phone "
+        android:inputType="number|phone"
+        android:textSize="20sp"></EditText>
+
+    <EditText
+        android:id="@+id/Pharmacy_Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview2"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:hint="Pharmacy Name "
+        android:inputType="textPersonName"
+        android:textSize="20sp"></EditText>
+
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/aclonica"
+        android:text="Vezeeta Clone App"
+        android:textColor="@color/design_default_color_background"
+        android:textSize="33sp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_title"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="50dp"
+        android:fontFamily="@font/aclonica"
+        android:text="Create New Account"
+        android:textColor="@color/white"
+        android:textSize="24sp"></TextView>
+
+    <TextView
+        android:id="@+id/Pharmacy_LoginHere"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Pharmacy_btn_register"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
+        android:onClick="Pharmacy_Login"
+        android:text="Already Registered? Login Here"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+
+        ></TextView>
+
+</RelativeLayout>

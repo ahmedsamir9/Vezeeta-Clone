@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back1"
+    tools:context=".LoginActivity">
+
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Password_login"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="30dp"
+        android:text="Login"
+        android:textSize="20sp"></Button>
+
+    <EditText
+        android:id="@+id/Password_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Email_login"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="16dp"
+        android:hint="Password "
+        android:inputType="textPassword"
+        android:textSize="20sp"></EditText>
+
+    <EditText
+        android:id="@+id/Email_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview2"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="16dp"
+        android:hint="Email "
+        android:inputType="textEmailAddress"
+        android:textSize="20sp"></EditText>
+
+    <TextView
+        android:id="@+id/textview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_title"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="120dp"
+        android:fontFamily="@font/aclonica"
+        android:text="Login Here"
+        android:textColor="@color/white"
+        android:textSize="24sp"></TextView>
+
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/aclonica"
+        android:text="Vezeeta Clone App"
+        android:textColor="@color/design_default_color_background"
+        android:textSize="33sp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/LoginHere_l"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_login"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="240dp"
+        android:text="Create Account"
+        android:textColor="@color/white"
+        android:textSize="18sp"></TextView>
+
+
+    <TextView
+        android:id="@+id/register_as_pharmacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LoginHere_l"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="90dp"
+        android:onClick="RegisterAsPharamcy"
+        android:text="Register As Pharmacy"
+        android:textColor="@color/white"
+        android:textSize="18sp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/forget_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_login"
+        android:layout_marginLeft="225dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:onClick="Forget_passwordd"
+        android:text="Forget Password?"
+        android:textColor="@color/white"
+        android:textSize="18sp">
+
+    </TextView>
+
+
+</RelativeLayout>
