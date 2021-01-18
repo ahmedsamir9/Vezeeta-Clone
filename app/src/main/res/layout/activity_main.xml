@@ -16,7 +16,19 @@
         android:onClick="logout"
         android:text="Log out"
         android:textSize="20sp"></Button>
-
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search Fragment"
+        android:textSize="18sp"
+        android:layout_below="@+id/btn_Logout"
+        android:layout_alignLeft="@+id/btn_Logout"
+        android:layout_alignRight="@+id/btn_Logout"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:onClick="Search"
+        />
     <TextView
         android:id="@+id/welcome"
         android:layout_width="match_parent"

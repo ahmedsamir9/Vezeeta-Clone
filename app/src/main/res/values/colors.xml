@@ -5,6 +5,21 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#CC000000</color>
     <color name="white">#FFFFFFFF</color>
+    /////////////////////////////////////
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#65d6ce</color>
+    <color name="colorShadow">#4D16C79A</color>
+    <color name="ratevaluecolor">#fdb827</color>
+    <color name="pricecolor">#FF5844</color>
+    <color name="colorwhite">#FFFFFF</color>
+    <color name="colorGgray">#C5C5C5</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colortext1">#000</color>
+    <color name="colortext2">#000000</color>
+    <color name="colorhint">#C5C5C5</color>
+    <color name="fragbackground">#FFFFFF</color>
+    <color name="vcardbground">#FFFFFF</color>
 </resources>

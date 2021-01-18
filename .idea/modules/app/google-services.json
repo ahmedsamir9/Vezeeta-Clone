@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "955817825872",
+    "firebase_url": "https://vezetaaclone-default-rtdb.firebaseio.com",
+    "project_id": "vezetaaclone",
+    "storage_bucket": "vezetaaclone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955817825872:android:0a3f3cc1f426f6d75b6355",
+        "android_client_info": {
+          "package_name": "com.example.vezetaaclone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955817825872-uk7fadg4mh1nn5nv611v9jf6imbs4i42.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vezetaaclone",
+            "certificate_hash": "f6ce2fb724b1d88803a7722ebe272656827611e8"
+          }
+        },
+        {
+          "client_id": "955817825872-c3lthbjm7k7o6p77tqj63tb3e5u0hrn7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArT3vEHSBEr5wGboAhWXlW-s9YNhfEXcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955817825872-c3lthbjm7k7o6p77tqj63tb3e5u0hrn7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
