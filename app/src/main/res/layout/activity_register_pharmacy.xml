@@ -10,7 +10,7 @@
         android:id="@+id/Pharmacy_btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Pharmacy_phone1"
+        android:layout_below="@id/btn_location"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="19dp"
         android:layout_marginRight="30dp"
@@ -64,7 +64,28 @@
         android:hint="Phone "
         android:inputType="number|phone"
         android:textSize="20sp"></EditText>
+    <Button
+        android:id="@+id/btn_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location"
+        android:text="Choose Location"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="16dp"/>
+    <EditText
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Pharmacy_phone1"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="16dp"
+        android:editable="false"
+        android:hint="Location"
 
+        />
+/
     <EditText
         android:id="@+id/Pharmacy_Name"
         android:layout_width="match_parent"

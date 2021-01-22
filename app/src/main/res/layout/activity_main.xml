@@ -39,5 +39,25 @@
         android:text="welcome to the dash board">
 
     </TextView>
+    <Button
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show My Location"
+        android:id="@+id/showlocation_btn"
+        android:layout_below="@id/save"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
+        android:onClick="showMyLocation"/>
+
+    <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_below="@id/showlocation_btn"/>
 
 </RelativeLayout>

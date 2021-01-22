@@ -1,5 +1,6 @@
 package com.example.vezetaaclone;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,8 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -45,6 +51,9 @@ public class RegisterActivity extends AppCompatActivity {
         login = findViewById(R.id.LoginHere);
         fAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
+
+
+
 
 
         if (fAuth.getCurrentUser() != null) {
@@ -107,4 +116,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

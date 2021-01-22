@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">VezetaaClone</string>
+    <string name="app_name" translatable="false">VezetaaClone</string>
+    <string name="google_place_api" translatable="false">AIzaSyCIdsnIbzwzFwltefj8BjmAvCwHkaxGTHE</string>
 </resources>
