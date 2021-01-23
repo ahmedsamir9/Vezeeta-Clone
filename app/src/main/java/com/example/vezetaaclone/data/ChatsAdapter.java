@@ -20,9 +20,9 @@ import java.util.List;
 public class ChatsAdapter extends RecyclerView.Adapter <ChatsAdapter.ChatsViewHolder> {
 
    private Context chatContext;
-   private List<User> PharaList;
+   private List<Pharmacy> PharaList;
 
-   public ChatsAdapter(Context chatContext, List<User> PharaList)
+   public ChatsAdapter(Context chatContext, List<Pharmacy> PharaList)
    {
       this.chatContext = chatContext;
       this.PharaList = PharaList;
@@ -46,7 +46,7 @@ public class ChatsAdapter extends RecyclerView.Adapter <ChatsAdapter.ChatsViewHo
 
    @Override
    public void onBindViewHolder(@NonNull ChatsViewHolder holder, int position) {
-    User pharmacy = PharaList.get(position);
+    Pharmacy pharmacy = PharaList.get(position);
     holder.username.setText(pharmacy.getName());
    }
 
