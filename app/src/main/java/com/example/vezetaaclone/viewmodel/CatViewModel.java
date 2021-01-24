@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CatViewModel extends ViewModel {
     public MutableLiveData<List<CategoryModel>> CatMutableLiveData = new MutableLiveData<List<CategoryModel>>();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/");
     DatabaseReference myRef = database.getReference().child("Category");
     List<CategoryModel>Data=new ArrayList<>() ;
     ImageViewModel imageViewModel;

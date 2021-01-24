@@ -24,7 +24,7 @@ public class ProductClient {
             INSTANCE=new ProductClient();
         return INSTANCE;
     }
-    public Call<productmodel>getProducts(){
-        return productInterface.getproducts();
+    public Call<productmodel>getProducts(String search){
+        return productInterface.getproducts(search);
     }
 }

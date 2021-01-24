@@ -1,4 +1,4 @@
-package com.example.vezetaaclone;
+package com.example.vezetaaclone.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import com.example.vezetaaclone.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;

@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ImageViewModel extends ViewModel {
     public MutableLiveData<List<String>> imageMutableLiveData=new MutableLiveData<List<String>>();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/");
     DatabaseReference myRef = database.getReference().child("ProductImages");
     List<String> Data=new ArrayList<>();
     ProductViewModel productViewModel;
@@ -39,7 +39,7 @@ public class ImageViewModel extends ViewModel {
                     String s=snapshot.getValue(String.class);
                     Data.add(s);
                 }
-                productViewModel.getProduct(context);
+
             }
 
             @Override

@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name" translatable="false">VezetaaClone</string>
     <string name="google_place_api" translatable="false">AIzaSyCIdsnIbzwzFwltefj8BjmAvCwHkaxGTHE</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_chat_frag" translatable="false">chatFragActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
+
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
 </resources>

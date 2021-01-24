@@ -15,9 +15,9 @@ import retrofit2.Response;
 public class ProductViewModel extends ViewModel {
     public MutableLiveData<productmodel> ProductMutableLiveData=new MutableLiveData<>();
     Context context;
-    public void getProduct(Context context){
+    public void getProduct(Context context,String search){
         this.context=context;
-        ProductClient.getINSTANCE().getProducts().enqueue(new Callback<productmodel>() {
+        ProductClient.getINSTANCE().getProducts(search).enqueue(new Callback<productmodel>() {
             @Override
             public void onResponse(Call<productmodel> call, Response<productmodel> response) {
                 ProductMutableLiveData.setValue(response.body());

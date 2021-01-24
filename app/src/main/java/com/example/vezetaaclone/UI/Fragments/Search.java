@@ -51,7 +51,7 @@ public class Search extends Fragment {
     CatViewModel catViewModel;
     private TextView labeler_name,description,ingredients,type;
     private RadioButton DarkRadioBtn;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/");
     List<String> Data =new ArrayList<>();
     List<CategoryModel> proData =new ArrayList<>();
     List<Result> productData =new ArrayList<>();
@@ -93,7 +93,9 @@ public class Search extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                filter(s.toString(), (ArrayList<Result>) productData);
+                productViewModel.getProduct(getActivity(),s.toString());
+
+
             }
         });
         overBox.setOnClickListener(new View.OnClickListener() {
@@ -116,23 +118,25 @@ public class Search extends Fragment {
         items_recyclerView.setFocusable(false);
         items_recyclerView.setNestedScrollingEnabled(false);
         item_adapter = new item_adapter(getActivity(),mykonten,overBox,labeler_name,description,ingredients,type);
-        productViewModel.ProductMutableLiveData.observe(this, new Observer<productmodel>() {
+        productViewModel.ProductMutableLiveData.observe(getViewLifecycleOwner(), new Observer<productmodel>() {
             @Override
             public void onChanged(productmodel productmodel) {
-                productData=productmodel.getResults();
-                items_recyclerView.setAdapter(item_adapter);
-                item_adapter.setList((ArrayList<Result>) productmodel.getResults(), (ArrayList) Data);
-                adapter.setlist(proData);
-                progressBar.setVisibility(View.GONE);
+                if(productmodel!=null) {
+                    productData = productmodel.getResults();
+                    items_recyclerView.setAdapter(item_adapter);
+                    item_adapter.setList((ArrayList<Result>) productmodel.getResults(), (ArrayList) Data);
+                    adapter.setlist(proData);
+                    progressBar.setVisibility(View.GONE);
+                }
             }
         });
-        imageViewModel.imageMutableLiveData.observe(this, new Observer<List<String>>() {
+        imageViewModel.imageMutableLiveData.observe(getViewLifecycleOwner(), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
                 Data=strings;
             }
         });
-        catViewModel.CatMutableLiveData.observe(this, new Observer<List<CategoryModel>>() {
+        catViewModel.CatMutableLiveData.observe(getViewLifecycleOwner(), new Observer<List<CategoryModel>>() {
             @Override
             public void onChanged(List<CategoryModel> categoryModels) {
                 proData= categoryModels;

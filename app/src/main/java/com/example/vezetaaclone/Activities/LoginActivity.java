@@ -32,12 +32,17 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        fAuth = FirebaseAuth.getInstance();
+        if (fAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+
+        }
         lMail = findViewById(R.id.Email_login);
         lPassword = findViewById(R.id.Password_login);
         btn_login = findViewById(R.id.btn_login);
         createAcc = findViewById(R.id.LoginHere_l);
         fAuth = FirebaseAuth.getInstance();
-
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

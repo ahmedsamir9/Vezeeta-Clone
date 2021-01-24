@@ -1,4 +1,4 @@
-package com.example.vezetaaclone;
+package com.example.vezetaaclone.Activities;
 
 import android.content.Intent;
 import android.location.Address;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.vezetaaclone.R;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -49,9 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         firebaseFirestore=FirebaseFirestore.getInstance();
         mAuth=FirebaseAuth.getInstance();
-
-
-        //showLocation = findViewById(R.id.showlocation_btn);
+        showLocation = findViewById(R.id.showlocation_btn);
 
 
 
@@ -94,6 +93,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return address;
 
     }
+    public void OpenChatFragment(View view)
+    {
+        startActivity(new Intent(getApplicationContext(), ChatFragActivity.class));
+        finish();
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -107,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                //     Toast.makeText(MainActivity.this, mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
                     for(QueryDocumentSnapshot documentSnapshot:task.getResult())
                     {
+                        if (documentSnapshot.getString("Email")!=null)
                         if(documentSnapshot.getString("Email").equals(mAuth.getCurrentUser().getEmail()))
                         {
                             double longi;
