@@ -1,5 +1,6 @@
-package com.example.vezetaaclone.Activities;
+package com.example.vezetaaclone;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,12 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-import com.example.vezetaaclone.Firestore_objs.Patient;
-import com.example.vezetaaclone.Firestore_objs.User;
-import com.example.vezetaaclone.R;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -51,6 +53,9 @@ public class RegisterActivity extends AppCompatActivity {
         fstore = FirebaseFirestore.getInstance();
 
 
+
+
+
         if (fAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
@@ -64,7 +69,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = rPassword.getText().toString();
                 String fullName = rFullname.getText().toString();
                 String Phone = rPhone.getText().toString();
-                
                 if (TextUtils.isEmpty(Email)) {
                     Toast.makeText(RegisterActivity.this, "Please Enter the Email !", Toast.LENGTH_SHORT).show();
                 }
@@ -81,7 +85,10 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "User Created", Toast.LENGTH_SHORT).show();
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fstore.collection("users").document(userID);
-                            Patient user = new Patient(Email,Phone,fullName);
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("fName", fullName);
+                            user.put("Email", Email);
+                            user.put("Phone", Phone);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -109,4 +116,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
