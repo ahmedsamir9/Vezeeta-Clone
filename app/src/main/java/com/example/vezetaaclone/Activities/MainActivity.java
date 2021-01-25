@@ -5,6 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.vezetaaclone.Firestore_objs.Pharmacy;
 import com.example.vezetaaclone.R;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     SupportMapFragment mapFragment;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth mAuth;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,16 +114,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                //     Toast.makeText(MainActivity.this, mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
                     for(QueryDocumentSnapshot documentSnapshot:task.getResult())
                     {
-                        if (documentSnapshot.getString("Email")!=null)
-                        if(documentSnapshot.getString("Email").equals(mAuth.getCurrentUser().getEmail()))
+                        if (documentSnapshot.getString("email")!=null)
+                        if(documentSnapshot.getString("email").equals(mAuth.getCurrentUser().getEmail()))
                         {
                             double longi;
                             double lati;
-                            longi=  documentSnapshot.getDouble("Longitude");
-                            lati= documentSnapshot.getDouble("Latitude");
+                            Pharmacy pharmacy=  documentSnapshot.toObject(Pharmacy.class);
+
                         //    Toast.makeText(MainActivity.this, String.valueOf(lati), Toast.LENGTH_SHORT).show();
-                            LatLng location=new LatLng(lati,longi);
-                            mMap.addMarker(new MarkerOptions().position(location).title(getCompleteAddress(lati,longi)));
+                            LatLng location=new LatLng(pharmacy.getLocation().getLatitude(),
+                                    pharmacy.getLocation().getLongitude());
+                            mMap.addMarker(new MarkerOptions().position(location).title(getCompleteAddress(pharmacy.getLocation().getLatitude()
+                                    ,pharmacy.getLocation().getLongitude())));
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,14F));
 
                         }

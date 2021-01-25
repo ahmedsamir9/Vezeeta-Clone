@@ -13,69 +13,57 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.vezetaaclone.R;
+import com.example.vezetaaclone.viewmodel.LoginRegisterViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     private EditText lMail, lPassword;
     private Button btn_login;
     private TextView createAcc;
+    private LoginRegisterViewModel loginRegisterViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        fAuth = FirebaseAuth.getInstance();
-        if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
+        loginRegisterViewModel = ViewModelProviders.of(this).get(LoginRegisterViewModel.class);
+        loginRegisterViewModel.getUserLiveData().observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                if (firebaseUser != null) {
 
-        }
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+            }
+        });
         lMail = findViewById(R.id.Email_login);
         lPassword = findViewById(R.id.Password_login);
         btn_login = findViewById(R.id.btn_login);
         createAcc = findViewById(R.id.LoginHere_l);
-        fAuth = FirebaseAuth.getInstance();
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String Email = lMail.getText().toString();
                 String password = lPassword.getText().toString();
-                if (TextUtils.isEmpty(Email)) {
-                    Toast.makeText(LoginActivity.this, "Please Enter the Email !", Toast.LENGTH_SHORT).show();
-                }
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, "Please Enter the password !", Toast.LENGTH_SHORT).show();
-                }
-                if (password.length() < 6) {
-                    Toast.makeText(LoginActivity.this, "the password must be greater than 6 character !", Toast.LENGTH_SHORT).show();
-                }
-                fAuth.signInWithEmailAndPassword(Email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
+                loginRegisterViewModel.login(Email,password);
             }
         });
         createAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-
             }
         });
     }
@@ -93,19 +81,10 @@ public class LoginActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(LoginActivity.this, "heree ", Toast.LENGTH_SHORT).show();
+
                 String maill = RestMail.getText().toString();
-                fAuth.sendPasswordResetEmail(maill).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(LoginActivity.this, "Reset Link send to your mail ", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(LoginActivity.this, "Reset Link is not send to your mail " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                loginRegisterViewModel.reset(maill);
+
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

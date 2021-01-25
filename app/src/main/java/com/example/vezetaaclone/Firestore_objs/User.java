@@ -4,14 +4,23 @@ public class User {
     private String Email;
     private String Phone;
     private String Name;
+    private String Id;
 
     public User() {
     }
 
-    public User(String Email, String Phone, String fName) {
+    public User(String ID, String Email, String Phone, String fName) {
         this.Email = Email;
         this.Phone = Phone;
         this.Name = fName;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String ID) {
+        this.Id= ID;
     }
 
     public String getEmail() {

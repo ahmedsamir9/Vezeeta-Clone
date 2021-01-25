@@ -16,9 +16,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 
+import com.example.vezetaaclone.Firestore_objs.Location;
+import com.example.vezetaaclone.Firestore_objs.Pharmacy;
 import com.example.vezetaaclone.R;
+import com.example.vezetaaclone.viewmodel.LoginRegisterViewModel;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -28,6 +33,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -38,13 +44,11 @@ import java.util.Locale;
 import java.util.Map;
 
 public class RegisterPharmacyActivity extends AppCompatActivity {
-    public static final String TAG = "TAG";
-    String userID;
-    FirebaseFirestore fstore;
+
     private EditText Pharmacy_Name1, Pharmacy_Email1, Pharmacy_Pass, Pharmacy_Phone_1, Pharmacy_Phone1_1;
     private Button Ph_btn_register;
     private TextView Pharmacy_login;
-    private FirebaseAuth fAuth;
+    private LoginRegisterViewModel loginRegisterViewModel;
     private Button location_btn;
     private EditText get_place;
     int PLACE_PICKER_REQUEST=1;
@@ -66,10 +70,9 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
         Pharmacy_Phone1_1 = findViewById(R.id.Pharmacy_phone1);
         Pharmacy_login = findViewById(R.id.Pharmacy_LoginHere);
         Ph_btn_register = findViewById(R.id.Pharmacy_btn_register);
-        fAuth = FirebaseAuth.getInstance();
-        fstore = FirebaseFirestore.getInstance();
         location_btn=findViewById(R.id.btn_location);
         get_place=findViewById(R.id.location);
+
         location_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,11 +91,17 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
 
             }
         });
-        if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
+        loginRegisterViewModel = ViewModelProviders.of(this).get(LoginRegisterViewModel.class);
+        loginRegisterViewModel.getUserLiveData().observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                if (firebaseUser != null) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+            }
+        });
 
-        }
         Ph_btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,44 +110,10 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
                 String fullName = Pharmacy_Name1.getText().toString();
                 String Phone = Pharmacy_Phone_1.getText().toString();
                 String Phone1 = Pharmacy_Phone1_1.getText().toString();
+                Pharmacy pharmacy =  new Pharmacy("deafult",Email,Phone,fullName,Phone1,new Location(get_place.getText().toString()
+                ,place.getLatLng().longitude,place.getLatLng().latitude));
+                loginRegisterViewModel.registerpharma(Email,password,pharmacy);
 
-                if (TextUtils.isEmpty(Email)) {
-                    Toast.makeText(RegisterPharmacyActivity.this, "Please Enter the Email !", Toast.LENGTH_SHORT).show();
-                }
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(RegisterPharmacyActivity.this, "Please Enter the password !", Toast.LENGTH_SHORT).show();
-                }
-                if (password.length() < 6) {
-                    Toast.makeText(RegisterPharmacyActivity.this, "the password must be greater than 6 character !", Toast.LENGTH_SHORT).show();
-                }
-
-                fAuth.createUserWithEmailAndPassword(Email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(RegisterPharmacyActivity.this, "Pharmacy Created", Toast.LENGTH_SHORT).show();
-                            userID = fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fstore.collection("PharmacyUsers").document(userID);
-                            Map<String, Object> PharmacyUsers = new HashMap<>();
-                            PharmacyUsers.put("Pharmacy Name", fullName);
-                            PharmacyUsers.put("Email", Email);
-                            PharmacyUsers.put("First Phone", Phone);
-                            PharmacyUsers.put("Second Phone", Phone1);
-                            PharmacyUsers.put("Location",get_place.getText().toString());
-                            PharmacyUsers.put("Longitude",place.getLatLng().longitude);
-                            PharmacyUsers.put("Latitude",place.getLatLng().latitude);
-                            documentReference.set(PharmacyUsers).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: Pharmacy user profile is created for " + userID);
-                                }
-                            });
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        } else {
-                            Toast.makeText(RegisterPharmacyActivity.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
             }
         });
         Pharmacy_login.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +131,7 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
         {
             if(resultCode==RESULT_OK)
             {
-                 place=PlacePicker.getPlace(this,data);
+                place=PlacePicker.getPlace(this,data);
                 Geocoder geocoder;
                 List<Address> addresses;
                 geocoder = new Geocoder(this, Locale.getDefault());

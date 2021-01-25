@@ -14,8 +14,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.example.vezetaaclone.Firestore_objs.Patient;
+import com.example.vezetaaclone.Firestore_objs.User;
 import com.example.vezetaaclone.R;
+import com.example.vezetaaclone.viewmodel.LoginRegisterViewModel;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -25,6 +30,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -38,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText rFullname, rEmail, rPassword, rPhone;
     private Button rBtn_register;
     private TextView login;
-    private FirebaseAuth fAuth;
+    private LoginRegisterViewModel loginRegisterViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +56,17 @@ public class RegisterActivity extends AppCompatActivity {
         rPhone = findViewById(R.id.phone);
         rBtn_register = findViewById(R.id.btn_register);
         login = findViewById(R.id.LoginHere);
-        fAuth = FirebaseAuth.getInstance();
-        fstore = FirebaseFirestore.getInstance();
 
-
-
-
-
-        if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
-
-        }
-
+        loginRegisterViewModel = ViewModelProviders.of(this).get(LoginRegisterViewModel.class);
+        loginRegisterViewModel.getUserLiveData().observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                if (firebaseUser != null) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+            }
+        });
         rBtn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,43 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = rPassword.getText().toString();
                 String fullName = rFullname.getText().toString();
                 String Phone = rPhone.getText().toString();
-                if (TextUtils.isEmpty(Email)) {
-                    Toast.makeText(RegisterActivity.this, "Please Enter the Email !", Toast.LENGTH_SHORT).show();
-                }
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(RegisterActivity.this, "Please Enter the password !", Toast.LENGTH_SHORT).show();
-                }
-                if (password.length() < 6) {
-                    Toast.makeText(RegisterActivity.this, "the password must be greater than 6 character !", Toast.LENGTH_SHORT).show();
-                }
-                fAuth.createUserWithEmailAndPassword(Email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(RegisterActivity.this, "User Created", Toast.LENGTH_SHORT).show();
-                            userID = fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fstore.collection("users").document(userID);
-                            Map<String, Object> user = new HashMap<>();
-                            user.put("fName", fullName);
-                            user.put("Email", Email);
-                            user.put("Phone", Phone);
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: user profile is created for " + userID);
-
-                                }
-                            });
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
-
-
+                Patient patient = new Patient("deafult",Email,Phone,fullName);
+                loginRegisterViewModel.register(Email, password,patient);
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
