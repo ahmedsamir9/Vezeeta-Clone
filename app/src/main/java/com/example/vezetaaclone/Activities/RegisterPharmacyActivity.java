@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,10 +47,9 @@ import java.util.Map;
 public class RegisterPharmacyActivity extends AppCompatActivity {
 
     private EditText Pharmacy_Name1, Pharmacy_Email1, Pharmacy_Pass, Pharmacy_Phone_1, Pharmacy_Phone1_1;
-    private Button Ph_btn_register;
+    private ImageButton Ph_btn_register;
     private TextView Pharmacy_login;
     private LoginRegisterViewModel loginRegisterViewModel;
-    private Button location_btn;
     private EditText get_place;
     int PLACE_PICKER_REQUEST=1;
     Activity activity;
@@ -70,10 +70,9 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
         Pharmacy_Phone1_1 = findViewById(R.id.Pharmacy_phone1);
         Pharmacy_login = findViewById(R.id.Pharmacy_LoginHere);
         Ph_btn_register = findViewById(R.id.Pharmacy_btn_register);
-        location_btn=findViewById(R.id.btn_location);
         get_place=findViewById(R.id.location);
 
-        location_btn.setOnClickListener(new View.OnClickListener() {
+        get_place.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PlacePicker.IntentBuilder builder=new PlacePicker.IntentBuilder();

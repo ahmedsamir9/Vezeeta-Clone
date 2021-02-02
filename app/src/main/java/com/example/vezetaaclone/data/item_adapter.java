@@ -19,10 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vezetaaclone.R;
 import com.example.vezetaaclone.pojo.ActiveIngredient;
+import com.example.vezetaaclone.pojo.CategoryModel;
 import com.example.vezetaaclone.pojo.Result;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView> {
@@ -32,7 +36,11 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView
     private ConstraintLayout mykonten;
     private LinearLayout overBox;
     private TextView labeler_name,description,ingredients,type;
+    DatabaseReference ref=FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/").getReference().child("CartList");
+    DatabaseReference refP=FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/").getReference().child("PriceList");
+    DatabaseReference refI=FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/").getReference().child("ImageList");
     Random rand = new Random();
+    private Animation add,cancel;
     public item_adapter(Context context, ConstraintLayout mykonten, LinearLayout overBox, TextView labeler_name, TextView description,
                         TextView ingredients, TextView type) {
         this.context = context;
@@ -47,15 +55,23 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView
     @NonNull
     @Override
     public item_adapter.MyHolderView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        CartData.RetriveData();
         return new MyHolderView(LayoutInflater.from(parent.getContext()).inflate(R.layout.drug_view_item,parent,false));
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull item_adapter.MyHolderView holder, int position) {
+
+
+
+
+
         int top = 16;
         int bottom = 16;
         int left = 20;
         int right = 20;
+
         if (position == 0){
             top = 0;
         }else{
@@ -66,12 +82,21 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView
             bottom =8;
         }
         holder.DrugName.setText(data.get(position).getGenericName());
-            Picasso.get().load(images.get(rand.nextInt(images.size()))).into(holder.img);
-            float r=1+rand.nextInt(5);
-            if(r==5)r--;
-            holder.ratingBar.setRating(r);
-            holder.item_price.setText("Price "+String.valueOf(10+rand.nextInt(30)+"P"));
-            holder.item_rating_value.setText("("+String.valueOf(r)+")");
+        int curImageRand=rand.nextInt(images.size());
+        Picasso.get().load(images.get(curImageRand)).into(holder.img);
+        float r=1+rand.nextInt(5);
+        if(r==5)r--;
+        holder.ratingBar.setRating(r);
+        holder.item_price.setText("Price "+String.valueOf(10+rand.nextInt(30)+"P"));
+        holder.item_rating_value.setText("("+String.valueOf(r)+")");
+
+        if(CartData.checked.containsKey(data.get(position))){
+            holder.addbtn.setBackgroundResource(R.drawable.circle_red_btn_bg);
+        }
+        else{
+            holder.addbtn.setBackgroundResource(R.drawable.circle_btn_bg);
+        }
+
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,6 +121,35 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView
                 type.setText(data.get(position).getProductType());
             }
         });
+        holder.addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!CartData.checked.containsKey(data.get(position)))
+                    CartData.checked.put(data.get(position),false);
+                if(!CartData.checked.get(data.get(position))){
+                    holder.addbtn.startAnimation(add);
+                    CartData.data.add(data.get(position));
+                    (ref.child(data.get(position).getProductId())).push().setValue(data.get(position));
+                    (refP.child(data.get(position).getProductId())).push().setValue(holder.item_price.getText().toString());
+                    (refI.child(data.get(position).getProductId())).push().setValue(images.get(curImageRand));
+                    //CartData.images.add(images.get(position));
+                    Toast.makeText(context,"Product Added To Cart",Toast.LENGTH_SHORT).show();
+                    holder.addbtn.setBackgroundResource(R.drawable.circle_red_btn_bg);
+                    boolean temp=!CartData.checked.get(data.get(position));
+                    CartData.checked.put(data.get(position),temp);
+                }else{
+                    holder.addbtn.startAnimation(cancel);
+                    ref.child(data.get(position).getProductId()).removeValue();
+                    refP.child(data.get(position).getProductId()).removeValue();
+                    refI.child(data.get(position).getProductId()).removeValue();
+                    CartData.data.remove(data.get(position));
+                    Toast.makeText(context,"Product Deleted From Cart",Toast.LENGTH_SHORT).show();
+                    holder.addbtn.setBackgroundResource(R.drawable.circle_btn_bg);
+                    boolean temp=!CartData.checked.get(data.get(position));
+                    CartData.checked.put(data.get(position),temp);
+                }
+            }
+        });
         ViewGroup.MarginLayoutParams marginLayoutParams = new ViewGroup.MarginLayoutParams(holder.itemView.getLayoutParams());
         marginLayoutParams.setMargins(left,top,right,bottom);
         holder.itemView.setLayoutParams(marginLayoutParams);
@@ -116,9 +170,8 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView
     }
     public class MyHolderView extends RecyclerView.ViewHolder {
         private TextView DrugName,item_price,item_rating_value;
-        private Animation add,cancel;
         private ImageButton addbtn;
-        private boolean checked=false;
+
         private ImageView img;
         private Animation togo,fromnothing,fromsmall;
         private RatingBar ratingBar;
@@ -134,22 +187,7 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView
             fromsmall= AnimationUtils.loadAnimation(context,R.anim.fromsmall);
             add= AnimationUtils.loadAnimation(context,R.anim.rotate_open_anim);
             cancel= AnimationUtils.loadAnimation(context,R.anim.rotate_close_anim);
-            addbtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(!checked){
-                        addbtn.startAnimation(add);
-                        Toast.makeText(context,"Product Added To Cart",Toast.LENGTH_SHORT).show();
-                        addbtn.setBackgroundResource(R.drawable.circle_red_btn_bg);
-                        checked=!checked;
-                    }else{
-                        addbtn.startAnimation(cancel);
-                        Toast.makeText(context,"Product Deleted From Cart",Toast.LENGTH_SHORT).show();
-                        addbtn.setBackgroundResource(R.drawable.circle_btn_bg);
-                        checked=!checked;
-                    }
-                }
-            });
+
         }
     }
 }

@@ -39,6 +39,7 @@ public class ImageViewModel extends ViewModel {
                     String s=snapshot.getValue(String.class);
                     Data.add(s);
                 }
+                productViewModel.getProduct(context,"");
 
             }
 

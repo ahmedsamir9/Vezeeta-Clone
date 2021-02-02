@@ -7,22 +7,22 @@
     android:layout_width="match_parent">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/back1"
+    android:layout_height="wrap_content"
    >
 
-    <Button
+    <ImageButton
         android:id="@+id/Pharmacy_btn_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_location"
-        android:layout_marginLeft="30dp"
+        android:layout_width="321dp"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/location"
         android:layout_marginTop="19dp"
-        android:layout_marginRight="30dp"
-        android:text="Register"
-        android:textSize="20sp"></Button>
+        android:background="@drawable/regbutton"
+        android:textSize="20sp"></ImageButton>
 
     <EditText
+        android:paddingLeft="10sp"
+        android:background="@drawable/edittextbg"
         android:id="@+id/Pharmacy_Email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,6 +35,8 @@
         android:textSize="20sp"></EditText>
 
     <EditText
+        android:paddingLeft="10sp"
+        android:background="@drawable/edittextbg"
         android:id="@+id/Pharmacy_Password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,6 +49,8 @@
         android:textSize="20sp"></EditText>
 
     <EditText
+        android:paddingLeft="10sp"
+        android:background="@drawable/edittextbg"
         android:id="@+id/Pharmacy_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,19 +70,15 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="19dp"
         android:layout_marginRight="16dp"
+        android:paddingLeft="10sp"
+        android:background="@drawable/edittextbg"
         android:hint="Phone "
         android:inputType="number|phone"
         android:textSize="20sp"></EditText>
-    <Button
-        android:id="@+id/btn_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/location"
-        android:text="Choose Location"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginRight="16dp"/>
+
     <EditText
+        android:paddingLeft="10sp"
+        android:background="@drawable/edittextbg"
         android:id="@+id/location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -90,57 +90,45 @@
         android:hint="Location"
 
         />
-/
+    /
+
     <EditText
         android:id="@+id/Pharmacy_Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textview2"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="16dp"
+        android:background="@drawable/edittextbg"
         android:hint="Pharmacy Name "
         android:inputType="textPersonName"
+        android:paddingLeft="10sp"
         android:textSize="20sp"></EditText>
 
     <TextView
-        android:id="@+id/app_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="20dp"
-        android:fontFamily="@font/aclonica"
-        android:text="Vezeeta Clone App"
-        android:textColor="@color/design_default_color_background"
-        android:textSize="33sp">
-
-    </TextView>
-
-    <TextView
         android:id="@+id/textview2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/app_title"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="50dp"
-        android:fontFamily="@font/aclonica"
-        android:text="Create New Account"
-        android:textColor="@color/white"
-        android:textSize="24sp"></TextView>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:textColor="#00008B"
+        android:text="Register your pharmacy"
+        android:textSize="24sp"
+        android:textStyle="bold"></TextView>
 
     <TextView
         android:id="@+id/Pharmacy_LoginHere"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Pharmacy_btn_register"
-        android:layout_marginLeft="70dp"
+
         android:layout_marginTop="10dp"
-        android:layout_marginRight="50dp"
+        android:layout_centerHorizontal="true"
+
         android:onClick="Pharmacy_Login"
-        android:text="Already Registered? Login Here"
-        android:textColor="@color/white"
+        android:text="@string/have_acc"
         android:textSize="18sp"
 
         ></TextView>

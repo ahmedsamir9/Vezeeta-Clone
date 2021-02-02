@@ -1,7 +1,9 @@
 package com.example.vezetaaclone.viewmodel;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -21,11 +23,13 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginRegisterViewModel extends AndroidViewModel{
         private AuthRepository authAppRepository;
         private MutableLiveData<FirebaseUser> userLiveData;
-
+        private MutableLiveData<String> Type;
         public LoginRegisterViewModel(@NonNull Application application) {
             super(application);
             authAppRepository = new AuthRepository(application.getApplicationContext());
             userLiveData = authAppRepository.getUserLiveData();
+            Type= authAppRepository.getType();
+
         }
 
          public void login(String email, String password) {
@@ -68,12 +72,20 @@ public class LoginRegisterViewModel extends AndroidViewModel{
         if(success)
             authAppRepository.register(email, password,pharma);
     }
+
+    public void logout() {
+        authAppRepository.logOut();
+    }
+
     public void reset(String email) {
             authAppRepository.resetpass(email);
     }
 
-        public MutableLiveData<FirebaseUser> getUserLiveData() {
+    public MutableLiveData<FirebaseUser> getUserLiveData() {
             return userLiveData;
         }
+    public MutableLiveData<String> getType() {
+        return Type;
+    }
 
 }

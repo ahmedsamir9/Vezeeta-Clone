@@ -6,16 +6,22 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.vezetaaclone.Firestore_objs.Pharmacy;
 import com.example.vezetaaclone.R;
+import com.example.vezetaaclone.UI.Fragments.CartFragment;
+import com.example.vezetaaclone.UI.Fragments.ChatListFragment;
+import com.example.vezetaaclone.UI.Fragments.Search;
+import com.example.vezetaaclone.UI.Fragments.moreFragment;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.vezetaaclone.pojo.CategoryModel;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +43,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity {
     Button showLocation;
     private GoogleMap mMap;
     SupportMapFragment mapFragment;
@@ -48,12 +55,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FragmentManager myFragmentManager = getSupportFragmentManager();
-        mapFragment = (SupportMapFragment) myFragmentManager
-                .findFragmentById(R.id.map);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+        //I added this if statement to keep the selected fragment when rotating the device
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new Search()).commit();
+        }
+
+        //FragmentManager myFragmentManager = getSupportFragmentManager();
+        //mapFragment = (SupportMapFragment) myFragmentManager.findFragmentById(R.id.map);
         firebaseFirestore=FirebaseFirestore.getInstance();
         mAuth=FirebaseAuth.getInstance();
-        showLocation = findViewById(R.id.showlocation_btn);
+
 
 
 
@@ -102,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         finish();
     }
 
-    @Override
+   /* @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap=googleMap;
 
@@ -135,10 +149,38 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
 
-    }
+    }*/
 
-    public void showMyLocation(View view) {
+   /* public void showMyLocation(View view) {
         mapFragment.getMapAsync(this);
 
-    }
+    }*/
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment = new Search();
+                    switch (item.getItemId()) {
+                        case R.id.page_1:
+                            selectedFragment = new Search();
+                            break;
+                        case R.id.page_2:
+                            selectedFragment = new ChatListFragment();
+                            break;
+                        case R.id.page_3:
+                            selectedFragment = new CartFragment();
+                            break;
+                        case R.id.page_4:
+                            selectedFragment = new moreFragment();
+                            break;
+                        case R.id.page_5:
+                            selectedFragment = new Search();
+                            break;
+
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            selectedFragment).commit();
+                    return true;
+                }
+            };
 }

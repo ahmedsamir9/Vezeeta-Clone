@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/page_1"
+        android:icon="@drawable/ic_medicine"
+        android:title="home"
+        />
+    <item
+        android:id="@+id/page_2"
+
+        android:icon="@drawable/ic_chat"
+        android:title="chat"
+        />
+    <item
+        android:id="@+id/page_3"
+ android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="shopping"
+        />
+    <item
+        android:id="@+id/page_5"
+        android:icon="@drawable/ic_baseline_medical_services_24"
+        android:title="pharmacy"
+        />
+    <item
+        android:id="@+id/page_4"
+   android:icon="@drawable/ic_baseline_more_24"
+        android:title="more"
+        />
+
+</menu>

@@ -1,77 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/afterLoginScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Activities.MainActivity">
 
-    <Button
-        android:id="@+id/btn_Logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/welcome"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="50dp"
-        android:onClick="logout"
-        android:text="Log out"
-        android:textSize="20sp"></Button>
-
-    <Button
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_Logout"
-        android:layout_alignLeft="@+id/btn_Logout"
-        android:layout_alignRight="@+id/btn_Logout"
-        android:layout_marginTop="10dp"
-        android:onClick="Search"
-        android:text="Search Fragment"
-        android:textAllCaps="false"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/btn_Chat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/save"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="50dp"
-        android:onClick="OpenChatFragment"
-        android:text="Chat Fragment"
-        android:textSize="20sp"></Button>
-
-    <TextView
-        android:id="@+id/welcome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="50dp"
-        android:text="welcome to the dash board">
-
-    </TextView>
-    <Button
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Show My Location"
-        android:id="@+id/showlocation_btn"
-        android:layout_below="@id/save"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="50dp"
-        android:onClick="showMyLocation"/>
-
-    <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/map"
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:scrollbars="vertical"
-        class="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_below="@id/showlocation_btn"/>
+        android:layout_above="@id/bottom_navigation" >
+
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_nav_menu"
+        android:layout_alignParentBottom="true"
+        app:itemIconTint="@drawable/tab_color"
+        app:itemTextColor="@drawable/tab_color"
+        app:labelVisibilityMode="unlabeled"
+        android:layout_marginBottom="0dp" />
 
 </RelativeLayout>

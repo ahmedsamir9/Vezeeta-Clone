@@ -1,116 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back1"
-    tools:context=".LoginActivity">
+    tools:context=".Activities.LoginActivity">
 
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="321dp"
+        android:layout_height="48dp"
         android:layout_below="@id/Password_login"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/loginbutton"
         android:text="Login"
-        android:textSize="20sp"></Button>
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Password_login"></ImageButton>
 
     <EditText
         android:id="@+id/Password_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="347dp"
+        android:layout_height="0dp"
         android:layout_below="@id/Email_login"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="63dp"
+        android:background="@drawable/edittextbg"
         android:hint="Password "
         android:inputType="textPassword"
-        android:textSize="20sp"></EditText>
+        android:paddingLeft="10sp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Email_login"></EditText>
 
     <EditText
         android:id="@+id/Email_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textview2"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginRight="16dp"
+        android:layout_width="347dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="272dp"
+        android:background="@drawable/edittextbg"
         android:hint="Email "
         android:inputType="textEmailAddress"
-        android:textSize="20sp"></EditText>
+        android:paddingLeft="10sp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
 
-    <TextView
-        android:id="@+id/textview2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/app_title"
-        android:layout_marginLeft="130dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="120dp"
-        android:fontFamily="@font/aclonica"
-        android:text="Login Here"
-        android:textColor="@color/white"
-        android:textSize="24sp"></TextView>
-
-    <TextView
-        android:id="@+id/app_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginRight="20dp"
-        android:fontFamily="@font/aclonica"
-        android:text="Vezeeta Clone App"
-        android:textColor="@color/design_default_color_background"
-        android:textSize="33sp">
-
-    </TextView>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></EditText>
 
     <TextView
         android:id="@+id/LoginHere_l"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="139dp"
+        android:layout_height="0dp"
         android:layout_below="@+id/btn_login"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="240dp"
-        android:text="Create Account"
-        android:textColor="@color/white"
-        android:textSize="18sp"></TextView>
-
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="4dp"
+        android:padding="10dp"
+        android:text="Register as a user"
+        android:textColor="#808080"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/line_1"
+        app:layout_constraintVertical_bias="1.0"></TextView>
 
     <TextView
         android:id="@+id/register_as_pharmacy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_below="@+id/LoginHere_l"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="90dp"
+        android:layout_marginBottom="4dp"
         android:onClick="RegisterAsPharamcy"
-        android:text="Register As Pharmacy"
-        android:textColor="@color/white"
-        android:textSize="18sp">
+        android:padding="10dp"
+        android:text="Register as a Pharmacy"
+        android:textColor="#808080"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/line_1"
+        app:layout_constraintVertical_bias="0.0">
 
     </TextView>
 
     <TextView
         android:id="@+id/forget_password"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_login"
-        android:layout_marginLeft="225dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="256dp"
         android:onClick="Forget_passwordd"
-        android:text="Forget Password?"
-        android:textColor="@color/white"
-        android:textSize="18sp">
+        android:text="@string/forgot_pass"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        app:layout_constraintVertical_bias="0.0">
 
     </TextView>
 
+    <View
+        android:id="@+id/line_1"
+        android:layout_width="1dp"
+        android:layout_height="500dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/line_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toStartOf="@+id/LoginHere_l"
+        app:layout_constraintTop_toTopOf="@+id/line_2" />
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="257dp"
+        android:layout_height="219dp"
+        android:src="@drawable/syringe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/line_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/line_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.946" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

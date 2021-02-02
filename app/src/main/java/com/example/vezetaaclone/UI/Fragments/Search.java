@@ -67,6 +67,7 @@ public class Search extends Fragment {
         imageViewModel=ViewModelProviders.of(this).get(ImageViewModel.class);
         catViewModel=ViewModelProviders.of(this).get(CatViewModel.class);
         catViewModel.get_Cat(getActivity(),imageViewModel,productViewModel);
+        imageViewModel.getImages(getActivity(),productViewModel);
         labeler_name=v.findViewById(R.id.tv_prodname);
         description=v.findViewById(R.id.tv_Desc);
         ingredients=v.findViewById(R.id.tv_ingredients);
@@ -83,7 +84,6 @@ public class Search extends Fragment {
         search_et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -122,6 +122,7 @@ public class Search extends Fragment {
             @Override
             public void onChanged(productmodel productmodel) {
                 if(productmodel!=null) {
+
                     productData = productmodel.getResults();
                     items_recyclerView.setAdapter(item_adapter);
                     item_adapter.setList((ArrayList<Result>) productmodel.getResults(), (ArrayList) Data);
@@ -134,32 +135,20 @@ public class Search extends Fragment {
             @Override
             public void onChanged(List<String> strings) {
                 Data=strings;
+
+
             }
+
         });
         catViewModel.CatMutableLiveData.observe(getViewLifecycleOwner(), new Observer<List<CategoryModel>>() {
             @Override
             public void onChanged(List<CategoryModel> categoryModels) {
                 proData= categoryModels;
+
             }
+
         });
-        DarkRadioBtn=v.findViewById(R.id.Darkbutton);
-        if(AppCompatDelegate.getDefaultNightMode()== AppCompatDelegate.MODE_NIGHT_YES) {
-            DarkRadioBtn.setChecked(true);
-        }
-        else{
-            DarkRadioBtn.setChecked(false);
-        }
-        DarkRadioBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(AppCompatDelegate.getDefaultNightMode()== AppCompatDelegate.MODE_NIGHT_YES){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
-                else{
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-            }
-        });
+
         return v;
     }
     private void filter(String text,ArrayList<Result>products){

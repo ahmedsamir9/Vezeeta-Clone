@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     String userID;
     FirebaseFirestore fstore;
     private EditText rFullname, rEmail, rPassword, rPhone;
-    private Button rBtn_register;
+    private ImageButton rBtn_register;
     private TextView login;
     private LoginRegisterViewModel loginRegisterViewModel;
 
