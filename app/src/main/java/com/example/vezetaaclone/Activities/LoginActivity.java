@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        Toast.makeText(this,sharedPref.getString("type",null),Toast.LENGTH_LONG).show();
+
 
         loginRegisterViewModel = ViewModelProviders.of(this).get(LoginRegisterViewModel.class);
             loginRegisterViewModel.getUserLiveData().observe(this, new Observer<FirebaseUser>() {

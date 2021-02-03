@@ -1,5 +1,6 @@
 package com.example.vezetaaclone.UI.Fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,13 +38,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
-
+import android.content.Context;
+import android.content.SharedPreferences;
 import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
 public class ChatListFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private List<Pharmacy> pharmacies;
+    private List<User> pharmacies;
+    SharedPreferences sharedPref;
 
 
     @Override
@@ -67,11 +70,14 @@ public class ChatListFragment extends Fragment {
     }
      void readPhara()
     {
+        String collection = "PharmacyUsers";
+        sharedPref = getActivity().getSharedPreferences("type",0);
+        String type = sharedPref.getString("type", "DEFAULT");
+                if (type.equals("pharmacy"))
+                    collection = "users";
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-        db.collection("PharmacyUsers")
-                .whereEqualTo("email", "moumenhamada3@gmail.com")
+        db.collection(collection)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,

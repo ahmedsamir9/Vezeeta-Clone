@@ -31,7 +31,7 @@
         </activity>
         <activity android:name=".Activities.RegisterActivity" />
         <activity android:name=".Activities.ChatFragActivity" />
-
+         <activity android:name=".Activities.MessageActivity"></activity>
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

@@ -38,7 +38,9 @@ public class Pharmacyactivity extends AppCompatActivity {
                         case R.id.page_1:
                             selectedFragment = new Search();
                             break;
-
+                        case R.id.page_2:
+                            selectedFragment = new ChatListFragment();
+                            break;
                         case R.id.page_4:
                             selectedFragment = new moreFragment();
                             break;

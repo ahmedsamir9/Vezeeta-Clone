@@ -6,6 +6,10 @@
         android:title="home"
         />
 
+    <item android:id="@+id/page_2"
+        android:icon="@drawable/ic_chat"
+        android:title="chat"/>
+
     <item
         android:id="@+id/page_5"
         android:icon="@drawable/ic_baseline_medical_services_24"
@@ -16,5 +20,6 @@
         android:icon="@drawable/ic_baseline_more_24"
         android:title="more"
         />
+
 
 </menu>
