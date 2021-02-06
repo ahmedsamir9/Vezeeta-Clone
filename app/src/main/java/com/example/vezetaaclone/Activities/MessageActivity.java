@@ -2,6 +2,7 @@ package com.example.vezetaaclone.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,10 +31,14 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,7 +55,9 @@ public class MessageActivity extends AppCompatActivity {
     messagesAdapter msgsAdapter;
     List<Chat> mchat;
     RecyclerView chatView;
-
+    SharedPreferences sharedPref;
+    String reader;
+    Calendar calendar = Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,16 +85,28 @@ public class MessageActivity extends AppCompatActivity {
         msg = findViewById(R.id.msgcontxt);
         sendBtn = findViewById(R.id.btn_send);
         intent = getIntent();
-        String PhId = intent.getStringExtra("id");
+        String ClickedUserID = intent.getStringExtra("id");
         String name = intent.getStringExtra("Name");
         user = FirebaseAuth.getInstance().getCurrentUser();
+        String chatsFromTo;
+
+
+        sharedPref = getSharedPreferences("type",0);
+        String type = sharedPref.getString("type", "DEFAULT");
+        if (type.equals("user"))
+            chatsFromTo = user.getUid() + ClickedUserID;
+        else
+            chatsFromTo = ClickedUserID + user.getUid();
+
+
+
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String message = msg.getText().toString();
                 if (!(message.trim().length() <= 0))
                 {
-                    SendMsg(message, user.getUid(), PhId);
+                    SendMsg(message, user.getUid(), ClickedUserID, chatsFromTo, calendar);
                     msg.setText("");
                 }
                 else
@@ -97,35 +116,31 @@ public class MessageActivity extends AppCompatActivity {
         });
 
         userText.setText(name);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference docRef = db.collection("chats").document("chatsFromTo").
-                collection("messages");
-        docRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
-                readMsg(user.getUid(), PhId);
-            }
-        });
+        readMsg(chatsFromTo, calendar);
 
     }
-    private void SendMsg(String msg, String sender, String reciever)
+    private void SendMsg(String msg, String sender, String reciever, String chatsFromTo, Calendar calendar)
     {
-        String chatsFromTo = sender+reciever;
+        calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        Toast.makeText(this,date.toString(),Toast.LENGTH_LONG).show();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("reciever", reciever);
         hashMap.put("message", msg);
+        hashMap.put("time", date);
         db.collection("chats").document(chatsFromTo).
                 collection("messages").add(hashMap);
+
     }
 
-    private void readMsg(String currID, String userID)
+    private void readMsg(String location, Calendar calendar)
     {
         mchat = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference docRef = db.collection("chats").document(currID+userID).
-                collection("messages");
+        Query docRef = db.collection("chats").document(location).
+                collection("messages").orderBy("time", Query.Direction.ASCENDING);
         docRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
@@ -133,9 +148,9 @@ public class MessageActivity extends AppCompatActivity {
                 for (QueryDocumentSnapshot QS : queryDocumentSnapshots)
                 {
                     Chat chat =  QS.toObject(Chat.class);
-                     {
+                    {
                         mchat.add(chat);
-                     }
+                    }
                 }
                 Log.i("chatList has", String.valueOf(mchat.size()));
                 msgsAdapter = new messagesAdapter(MessageActivity.this, mchat);

@@ -7,12 +7,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.vezetaaclone.Activities.Pharmacyactivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -29,7 +31,7 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
     String userID;
     FirebaseFirestore fstore;
     private EditText Pharmacy_Name1, Pharmacy_Email1, Pharmacy_Pass, Pharmacy_Phone_1, Pharmacy_Phone1_1;
-    private Button Ph_btn_register;
+    private ImageButton Ph_btn_register;
     private TextView Pharmacy_login;
     private FirebaseAuth fAuth;
 
@@ -48,7 +50,7 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
         if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), Pharmacyactivity.class));
             finish();
 
         }
