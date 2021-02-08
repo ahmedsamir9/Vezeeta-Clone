@@ -9,8 +9,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,7 @@ import com.example.vezetaaclone.Firestore_objs.Pharmacy;
 import com.example.vezetaaclone.R;
 import com.example.vezetaaclone.UI.Fragments.CartFragment;
 import com.example.vezetaaclone.UI.Fragments.ChatListFragment;
+import com.example.vezetaaclone.UI.Fragments.PharmaciesFragment;
 import com.example.vezetaaclone.UI.Fragments.Search;
 import com.example.vezetaaclone.UI.Fragments.moreFragment;
 import com.google.android.gms.maps.CameraUpdate;
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth mAuth;
     private static final String TAG = "MainActivity";
+    Toolbar mActionBarToolbar;
+    TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+        tv = findViewById(R.id.toolbar_title);
         //I added this if statement to keep the selected fragment when rotating the device
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new Search()).commit();
+            tv.setText("Medicines");
         }
 
         //FragmentManager myFragmentManager = getSupportFragmentManager();
@@ -77,10 +83,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
     }
-    public void Search (View view){
-        startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-        finish();
-    }
+
     private String getCompleteAddress(double longtiude,double latitude)
     {
         String address="";
@@ -162,19 +165,25 @@ public class MainActivity extends AppCompatActivity {
                     Fragment selectedFragment = new Search();
                     switch (item.getItemId()) {
                         case R.id.page_1:
+                            tv.setText("Medicines");
                             selectedFragment = new Search();
+
                             break;
                         case R.id.page_2:
+                            tv.setText("Chats");
                             selectedFragment = new ChatListFragment();
                             break;
                         case R.id.page_3:
+                            tv.setText("Cart");
                             selectedFragment = new CartFragment();
                             break;
                         case R.id.page_4:
+                            tv.setText("More");
                             selectedFragment = new moreFragment();
                             break;
                         case R.id.page_5:
-                            selectedFragment = new Search();
+                            tv.setText("Pharmacies");
+                            selectedFragment = new PharmaciesFragment();
                             break;
 
                     }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rating_bare_drug_pharmacy"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:padding="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_drug_phamacy_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_drug_pharmacy_recycle"
+                android:layout_width="130dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp"
+                android:scaleType="centerCrop">
+
+            </ImageView>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/txt_name_drug_pharmacy_recycle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Panadol Extra"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/card_drug_phamacy_profile"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rate_bare_drug_pharmacy_recycle"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:progressTint="#F4B926"
+            app:layout_constraintStart_toStartOf="@+id/txt_name_drug_pharmacy_recycle"
+            app:layout_constraintTop_toBottomOf="@+id/txt_name_drug_pharmacy_recycle">
+
+        </androidx.appcompat.widget.AppCompatRatingBar>
+
+        <TextView
+            android:id="@+id/txt_rate_value_drug_pharmacy_recycle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="(0.0)"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/rate_bare_drug_pharmacy_recycle"
+            app:layout_constraintStart_toEndOf="@+id/rate_bare_drug_pharmacy_recycle"
+            app:layout_constraintTop_toTopOf="@+id/rate_bare_drug_pharmacy_recycle"></TextView>
+
+        <TextView
+            android:id="@+id/txt_price_drug_pharmacy_recycle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="18dp"
+            android:text="Price: 30p"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/rate_bare_drug_pharmacy_recycle"
+            app:layout_constraintTop_toTopOf="@id/rate_bare_drug_pharmacy_recycle"></TextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

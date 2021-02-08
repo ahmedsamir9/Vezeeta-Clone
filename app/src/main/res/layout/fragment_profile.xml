@@ -1,14 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UI.Fragments.ProfileFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:background="@color/blue"></View>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/white"></View>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_pharmacy_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:shadowColor="@color/blue"
+                    android:shadowRadius="10"
+                    android:text="Name Pharmacy"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp"
+                    android:textStyle="bold|italic"></TextView>
+
+                <TextView
+                    android:id="@+id/txt_pharmacy_phone1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:shadowColor="@color/blue"
+                    android:shadowRadius="10"
+                    android:text="Phone Number One"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="normal|italic" />
+
+                <TextView
+                    android:id="@+id/txt_pharmacy_phone2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:shadowColor="@color/blue"
+                    android:shadowRadius="10"
+                    android:text="Phone Number Two"
+                    android:textColor="@color/colorwhite"
+                    android:textSize="22sp"
+                    android:textStyle="normal|italic" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cornerRadius="20dp"
+                        style="@style/MaterialRippleLayout"
+                        android:backgroundTint="@color/white">
+
+                        <Button
+                            android:id="@+id/btn_location_phamacy_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/background"
+                            android:backgroundTint="@color/white"
+                            android:drawableLeft="@drawable/ic_location"
+                            android:elevation="20dp"
+                            android:shadowRadius="2"
+                            android:text="location"
+                            android:textColor="@color/blue"
+                            android:textSize="14sp"
+                            app:backgroundTint="@color/white"
+                            app:cornerRadius="10dp" />
+                    </com.balysv.materialripple.MaterialRippleLayout>
+                    <TextView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"/>
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cornerRadius="20dp"
+                        style="@style/MaterialRippleLayout"
+                        android:backgroundTint="@color/white">
+
+                        <Button
+                            android:id="@+id/btn_change_imge_pharmacy_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/background"
+                            android:backgroundTint="@color/white"
+                            android:shadowRadius="2"
+                            android:text="changeIphoto"
+                            android:textColor="@color/blue"
+                            android:textSize="14sp"
+                            app:backgroundTint="@color/white"
+                            app:cornerRadius="10dp" />
+                    </com.balysv.materialripple.MaterialRippleLayout>
+                </LinearLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:elevation="20dp"
+                    android:background="@color/white"
+                    app:cardCornerRadius="150dp"
+                    android:layout_gravity="center"
+                    >
+
+                    <ImageView
+                        android:id="@+id/img_view_parmacy_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:src="@drawable/p3" />
+                </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/curave111"
+                    android:gravity="center"
+                    android:text="All Drugs Are Now Available In The Pharmacy"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold">
+
+                </TextView>
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:id="@+id/recycle_view_parmacy_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
