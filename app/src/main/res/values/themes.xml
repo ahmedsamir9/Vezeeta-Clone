@@ -11,14 +11,9 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">#00008b</item>
-
         <!-- Customize your theme here. -->
     </style>
-    <style name="MaterialRippleLayout">
-        <item name="mrl_rippleOverlay" >true</item>
-        <item name="mrl_rippleColor">@color/blue</item>
-        <item name="mrl_rippleAlpha" >0.2</item>
-    </style>
+
     <style name="Theme.VezetaaClone.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>

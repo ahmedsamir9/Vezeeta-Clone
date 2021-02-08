@@ -34,6 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class MessageActivity extends AppCompatActivity {
     RecyclerView chatView;
     SharedPreferences sharedPref;
     String reader;
-    Calendar calendar = Calendar.getInstance();
+    Calendar calendar ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,26 +117,35 @@ public class MessageActivity extends AppCompatActivity {
         });
 
         userText.setText(name);
-        readMsg(chatsFromTo, calendar);
+        readMsg(chatsFromTo);
 
     }
-    private void SendMsg(String msg, String sender, String reciever, String chatsFromTo, Calendar calendar)
+    private void SendMsg(String msg, String sender, String receiver, String chatsFromTo, Calendar calendar)
     {
         calendar = Calendar.getInstance();
         Date date = calendar.getTime();
-        Toast.makeText(this,date.toString(),Toast.LENGTH_LONG).show();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        HashMap<String, Object> XtoY = new HashMap<>();
+        XtoY.put("sender", sender);
+        XtoY.put("receiver", receiver);
+
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
-        hashMap.put("reciever", reciever);
+        hashMap.put("receiver", receiver);
         hashMap.put("message", msg);
         hashMap.put("time", date);
+
+
         db.collection("chats").document(chatsFromTo).
                 collection("messages").add(hashMap);
+        db.collection("chats").document(chatsFromTo)
+                .set(XtoY, SetOptions.merge());
+
 
     }
 
-    private void readMsg(String location, Calendar calendar)
+    private void readMsg(String location)
     {
         mchat = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -148,9 +158,9 @@ public class MessageActivity extends AppCompatActivity {
                 for (QueryDocumentSnapshot QS : queryDocumentSnapshots)
                 {
                     Chat chat =  QS.toObject(Chat.class);
-                    {
+                     {
                         mchat.add(chat);
-                    }
+                     }
                 }
                 Log.i("chatList has", String.valueOf(mchat.size()));
                 msgsAdapter = new messagesAdapter(MessageActivity.this, mchat);

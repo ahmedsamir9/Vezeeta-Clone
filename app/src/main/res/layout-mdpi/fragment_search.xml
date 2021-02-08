@@ -147,22 +147,19 @@
             <EditText
 
                 android:id="@+id/ET_search"
-                android:layout_width="match_parent"
-                android:layout_height="56sp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
+                android:layout_width="384dp"
+                android:layout_height="53dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:background="@drawable/editetext_bg"
                 android:hint="Search Drugs..."
                 android:inputType="textPersonName"
-                android:paddingLeft="10sp"
+                android:paddingStart="16dp"
+                android:paddingLeft="8dp"
                 android:textColor="@color/colortext2"
                 android:textColorHint="@color/colorhint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

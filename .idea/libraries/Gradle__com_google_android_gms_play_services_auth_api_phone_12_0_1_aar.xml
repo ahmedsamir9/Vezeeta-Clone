@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.gms:play-services-auth-api-phone:12.0.1@aar">
     <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/46f17ac92b7c61490c8a9ba4dd4c9d34/jetified-play-services-auth-api-phone-12.0.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/46f17ac92b7c61490c8a9ba4dd4c9d34/jetified-play-services-auth-api-phone-12.0.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23c83103ac4282d5ea4cf50d9a4931e0/jetified-play-services-auth-api-phone-12.0.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23c83103ac4282d5ea4cf50d9a4931e0/jetified-play-services-auth-api-phone-12.0.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23c83103ac4282d5ea4cf50d9a4931e0/jetified-play-services-auth-api-phone-12.0.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/46f17ac92b7c61490c8a9ba4dd4c9d34/jetified-play-services-auth-api-phone-12.0.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/36638114ced4eca529e1f9ffa5218d42/jetified-play-services-auth-api-phone-12.0.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/36638114ced4eca529e1f9ffa5218d42/jetified-play-services-auth-api-phone-12.0.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/36638114ced4eca529e1f9ffa5218d42/jetified-play-services-auth-api-phone-12.0.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -1,9 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:firebase-messaging:12.0.1@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/769330a564d81adf6abe29a9db568669/jetified-firebase-messaging-12.0.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/769330a564d81adf6abe29a9db568669/jetified-firebase-messaging-12.0.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/769330a564d81adf6abe29a9db568669/jetified-firebase-messaging-12.0.1/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e3ef573bb9bf61da047b7abe39ff96fc/jetified-firebase-messaging-12.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e3ef573bb9bf61da047b7abe39ff96fc/jetified-firebase-messaging-12.0.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e3ef573bb9bf61da047b7abe39ff96fc/jetified-firebase-messaging-12.0.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2dade40d9ea76893719021545a714262/jetified-firebase-messaging-12.0.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2dade40d9ea76893719021545a714262/jetified-firebase-messaging-12.0.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2dade40d9ea76893719021545a714262/jetified-firebase-messaging-12.0.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

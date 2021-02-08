@@ -1,6 +1,5 @@
 package com.example.vezetaaclone.Activities;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
     private LoginRegisterViewModel loginRegisterViewModel;
     private static final String TAG = "FragmentActivity";
     SharedPreferences sharedPref;
-    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
          sharedPref = getSharedPreferences("type",0);
-        mProgress = new ProgressDialog(this);
-        mProgress.setTitle("Logging In...");
-        mProgress.setMessage("Please wait...");
-        mProgress.setCancelable(false);
-        mProgress.setIndeterminate(true);
+
         SharedPreferences.Editor editor = sharedPref.edit();
 
 
@@ -68,16 +62,13 @@ public class LoginActivity extends AppCompatActivity {
                         if(sharedPref.getString("type",null)!=null)
                             if (sharedPref.getString("type",null).equals("user")) {
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
                             }
                             else if(sharedPref.getString("type",null).equals("pharmacy")) {
                                 startActivity(new Intent(getApplicationContext(), Pharmacyactivity.class));
-                                finish();
                             }
-                        mProgress.hide();
-
+                            //finish();
                         }
-                    mProgress.hide();
+
                 }
             });
 
@@ -90,9 +81,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String Email = lMail.getText().toString();
                 String password = lPassword.getText().toString();
-                mProgress.show();
                 loginRegisterViewModel.login(Email,password);
-
             }
         });
         createAcc.setOnClickListener(new View.OnClickListener() {
