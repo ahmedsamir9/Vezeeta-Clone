@@ -5,6 +5,9 @@ public class User {
     private String Phone;
     private String Name;
     private String Id;
+    private String image;
+
+
 
     public User() {
     }
@@ -13,6 +16,13 @@ public class User {
         this.Email = Email;
         this.Phone = Phone;
         this.Name = fName;
+    }
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String photo) {
+        image = photo;
     }
 
     public String getId() {

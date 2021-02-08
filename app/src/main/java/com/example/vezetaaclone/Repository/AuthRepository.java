@@ -66,45 +66,49 @@ public class AuthRepository {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful())
                     {
-                        DocumentReference docRef = fstore.collection("users").document(firebaseAuth.getCurrentUser().
-                                getUid());
-                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists())
-                                    {
-
-                                      editor.putString("type","user");
-                                      editor.apply();
-                                    }
-                                    else
-                                    {
-
-                                      editor.putString("type","pharmacy");
-                                      editor.apply();
-                                    }
-
-                                }
-                                else {
-                                    Log.d(TAG, "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                        userLiveData.postValue(firebaseAuth.getCurrentUser());
+                        puttype();
                     } else {
+                        userLiveData.setValue(null);
                         Toast.makeText(context, "Login Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+    public void puttype()
+    {
+        DocumentReference docRef = fstore.collection("users").document(firebaseAuth.getCurrentUser().
+                getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists())
+                    {
+                        editor.putString("type","user");
+                        editor.apply();
+                        userLiveData.postValue(firebaseAuth.getCurrentUser());
+                    }
+                    else
+                    {
 
+                        editor.putString("type","pharmacy");
+                        editor.apply();
+                        userLiveData.postValue(firebaseAuth.getCurrentUser());
+                    }
+
+                }
+                else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
 
     public void register(String email, String password, Patient patient) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            userLiveData.postValue(firebaseAuth.getCurrentUser());
+                           puttype();
                             patient.setId(firebaseAuth.getCurrentUser().getUid());
                             DocumentReference documentReference = fstore.collection("users").
                                     document( firebaseAuth.getCurrentUser().getUid());
@@ -128,7 +132,7 @@ public class AuthRepository {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        userLiveData.postValue(firebaseAuth.getCurrentUser());
+                        puttype();
                         pharmacy.setId(firebaseAuth.getCurrentUser().getUid());
                         DocumentReference documentReference = fstore.collection("PharmacyUsers").
                                 document( firebaseAuth.getCurrentUser().getUid());

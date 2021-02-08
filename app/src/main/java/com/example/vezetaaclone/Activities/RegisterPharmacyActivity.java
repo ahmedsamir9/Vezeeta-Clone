@@ -118,7 +118,9 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
         Pharmacy_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
 
             }
         });
@@ -151,7 +153,9 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
     }
 
     public void Pharmacy_Login(View view) {
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 }

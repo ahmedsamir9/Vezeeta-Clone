@@ -123,7 +123,7 @@ public class ChatListFragment extends Fragment {
                         if (fuser.getUid().equals(doc.getString("sender")))
                             getUserByID(doc.getString("receiver"));
                         else
-                        getUserByID(doc.getString("sender"));
+                            getUserByID(doc.getString("sender"));
 
                     }
                 }

@@ -1,6 +1,8 @@
 package com.example.vezetaaclone.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +19,30 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.vezetaaclone.Firestore_objs.Location;
+import com.example.vezetaaclone.Firestore_objs.Pharmacy;
 import com.example.vezetaaclone.R;
 import com.example.vezetaaclone.pojo.ActiveIngredient;
 import com.example.vezetaaclone.pojo.CategoryModel;
 import com.example.vezetaaclone.pojo.Result;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
+import retrofit2.http.OPTIONS;
+
+import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
 public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView> {
     ArrayList<Result> data=new ArrayList<>();
@@ -35,6 +50,7 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView
     private Context context;
     private ConstraintLayout mykonten;
     private LinearLayout overBox;
+    float r;
     private TextView labeler_name,description,ingredients,type;
     DatabaseReference ref=FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/").getReference().child("CartList");
     DatabaseReference refP=FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/").getReference().child("PriceList");
@@ -84,7 +100,7 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView
         holder.DrugName.setText(data.get(position).getGenericName());
         int curImageRand=rand.nextInt(images.size());
         Picasso.get().load(images.get(curImageRand)).into(holder.img);
-        float r=1+rand.nextInt(5);
+        r=1+rand.nextInt(5);
         if(r==5)r--;
         holder.ratingBar.setRating(r);
         holder.item_price.setText("Price "+String.valueOf(10+rand.nextInt(30)+"P"));
@@ -124,29 +140,73 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView
         holder.addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!CartData.checked.containsKey(data.get(position)))
-                    CartData.checked.put(data.get(position),false);
-                if(!CartData.checked.get(data.get(position))){
-                    holder.addbtn.startAnimation(add);
-                    CartData.data.add(data.get(position));
-                    (ref.child(data.get(position).getProductId())).push().setValue(data.get(position));
-                    (refP.child(data.get(position).getProductId())).push().setValue(holder.item_price.getText().toString());
-                    (refI.child(data.get(position).getProductId())).push().setValue(images.get(curImageRand));
-                    //CartData.images.add(images.get(position));
-                    Toast.makeText(context,"Product Added To Cart",Toast.LENGTH_SHORT).show();
-                    holder.addbtn.setBackgroundResource(R.drawable.circle_red_btn_bg);
-                    boolean temp=!CartData.checked.get(data.get(position));
-                    CartData.checked.put(data.get(position),temp);
-                }else{
-                    holder.addbtn.startAnimation(cancel);
-                    ref.child(data.get(position).getProductId()).removeValue();
-                    refP.child(data.get(position).getProductId()).removeValue();
-                    refI.child(data.get(position).getProductId()).removeValue();
-                    CartData.data.remove(data.get(position));
-                    Toast.makeText(context,"Product Deleted From Cart",Toast.LENGTH_SHORT).show();
-                    holder.addbtn.setBackgroundResource(R.drawable.circle_btn_bg);
-                    boolean temp=!CartData.checked.get(data.get(position));
-                    CartData.checked.put(data.get(position),temp);
+                SharedPreferences sharedPref = context.getSharedPreferences("type",0);
+                if(sharedPref.getString("type",null)!=null)
+                {
+                    if (sharedPref.getString("type", null).equals("pharmacy"))
+                    {
+                        ///Pharmacy pharmacy=new Pharmacy();
+                        //pharmacy.setId(firebaseAuth.getCurrentUser()getUid());
+                        FirebaseFirestore fstore = FirebaseFirestore.getInstance();
+                        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                        Drugs drug= new Drugs();
+                        drug.setName(data.get(position).getBrandName());
+                        drug.setImage(images.get(curImageRand));
+                        drug.setRate(r);
+                        drug.setPrice(holder.item_price.getText().toString());
+                        CollectionReference collRef = fstore.collection("PharmacyUsers");
+                        collRef.document(firebaseAuth.getCurrentUser().
+                                getUid()).collection("Drugs").add(drug).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {                             Toast.makeText(context,"Product Added To Cart",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context,"Product Added To Pharmacy Profile",Toast.LENGTH_SHORT).show();
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(context," Error Can't  Add Product To Pharmacy Profile",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        /*docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                pharmacy.setId(firebaseAuth.getCurrentUser().
+                                        getUid());
+                            }
+                        });*/
+
+
+
+
+                    }
+                    else if (sharedPref.getString("type", null).equals("user"))
+                    {
+                        if(!CartData.checked.containsKey(data.get(position)))
+                            CartData.checked.put(data.get(position),false);
+                        if(!CartData.checked.get(data.get(position))){
+                            holder.addbtn.startAnimation(add);
+                            CartData.data.add(data.get(position));
+                            (ref.child(data.get(position).getProductId())).push().setValue(data.get(position));
+                            (refP.child(data.get(position).getProductId())).push().setValue(holder.item_price.getText().toString());
+                            (refI.child(data.get(position).getProductId())).push().setValue(images.get(curImageRand));
+                            //CartData.images.add(images.get(position));
+                            Toast.makeText(context,"Product Added To Cart",Toast.LENGTH_SHORT).show();
+                            holder.addbtn.setBackgroundResource(R.drawable.circle_red_btn_bg);
+                            boolean temp=!CartData.checked.get(data.get(position));
+                            CartData.checked.put(data.get(position),temp);
+                        }else{
+                            holder.addbtn.startAnimation(cancel);
+                            ref.child(data.get(position).getProductId()).removeValue();
+                            refP.child(data.get(position).getProductId()).removeValue();
+                            refI.child(data.get(position).getProductId()).removeValue();
+                            CartData.data.remove(data.get(position));
+                            Toast.makeText(context,"Product Deleted From Cart",Toast.LENGTH_SHORT).show();
+                            holder.addbtn.setBackgroundResource(R.drawable.circle_btn_bg);
+                            boolean temp=!CartData.checked.get(data.get(position));
+                            CartData.checked.put(data.get(position),temp);
+                        }
+                    }
                 }
             }
         });

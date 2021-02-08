@@ -158,9 +158,9 @@ public class MessageActivity extends AppCompatActivity {
                 for (QueryDocumentSnapshot QS : queryDocumentSnapshots)
                 {
                     Chat chat =  QS.toObject(Chat.class);
-                     {
+                    {
                         mchat.add(chat);
-                     }
+                    }
                 }
                 Log.i("chatList has", String.valueOf(mchat.size()));
                 msgsAdapter = new messagesAdapter(MessageActivity.this, mchat);
