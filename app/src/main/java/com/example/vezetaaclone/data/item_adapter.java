@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.vezetaaclone.Firestore_objs.Drugs;
 import com.example.vezetaaclone.Firestore_objs.Location;
 import com.example.vezetaaclone.Firestore_objs.Pharmacy;
 import com.example.vezetaaclone.R;
@@ -151,7 +150,7 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView
                         FirebaseFirestore fstore = FirebaseFirestore.getInstance();
                         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                         Drugs drug= new Drugs();
-                        drug.setName(data.get(position).getProductNdc());
+                        drug.setName(data.get(position).getBrandName());
                         drug.setImage(images.get(curImageRand));
                         drug.setRate(r);
                         drug.setPrice(holder.item_price.getText().toString());

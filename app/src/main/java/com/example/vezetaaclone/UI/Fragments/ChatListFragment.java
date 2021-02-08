@@ -61,6 +61,7 @@ public class ChatListFragment extends Fragment {
         pharmacies = new ArrayList<>();
 
         readPhara();
+
         return view;
     }
     @Override

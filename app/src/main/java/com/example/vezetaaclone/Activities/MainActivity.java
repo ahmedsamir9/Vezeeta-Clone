@@ -21,6 +21,7 @@ import com.example.vezetaaclone.Firestore_objs.Pharmacy;
 import com.example.vezetaaclone.R;
 import com.example.vezetaaclone.UI.Fragments.CartFragment;
 import com.example.vezetaaclone.UI.Fragments.ChatListFragment;
+import com.example.vezetaaclone.UI.Fragments.PharmaciesFragment;
 import com.example.vezetaaclone.UI.Fragments.Search;
 import com.example.vezetaaclone.UI.Fragments.moreFragment;
 import com.google.android.gms.maps.CameraUpdate;
@@ -82,10 +83,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
     }
-    public void Search (View view){
-        startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-        finish();
-    }
+
     private String getCompleteAddress(double longtiude,double latitude)
     {
         String address="";
@@ -185,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.page_5:
                             tv.setText("Pharmacies");
-                            selectedFragment = new Search();
+                            selectedFragment = new PharmaciesFragment();
                             break;
 
                     }

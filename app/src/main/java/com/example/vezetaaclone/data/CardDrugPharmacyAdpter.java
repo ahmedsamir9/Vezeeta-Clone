@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -57,7 +58,7 @@ public class CardDrugPharmacyAdpter  extends RecyclerView.Adapter
         private TextView txtNameDrug,txtPriceDrug,txtRateValueDrug;
         private RatingBar ratingBarDrug;
         private ImageView imageViewDrug;
-
+        private Animation togo,fromnothing,fromsmall;
         public DrugViewHolder(@NonNull View itemView)
         {
             super(itemView);
@@ -71,9 +72,9 @@ public class CardDrugPharmacyAdpter  extends RecyclerView.Adapter
         public void onBind(Drugs drug)
         {
             txtNameDrug.setText(drug.getName());
-            txtPriceDrug.setText("Price "+String.valueOf(drug.getPrice()));
+            txtPriceDrug.setText(String.valueOf(drug.getPrice()));
             txtRateValueDrug.setText("("+String.valueOf(drug.getRate())+")");
-            Picasso.get().load(drug.getName()).into(imageViewDrug);
+            Picasso.get().load(drug.getImage()).into(imageViewDrug);
             ratingBarDrug.setRating(drug.getRate());
         }
 

@@ -5,15 +5,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UI.Fragments.ProfileFragment">
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <RelativeLayout
-            android:paddingBottom="200dp"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -41,31 +40,39 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:gravity="center"
                     android:shadowColor="@color/blue"
                     android:shadowRadius="10"
                     android:text="Name Pharmacy"
+                    android:textColor="#FFFFFF"
                     android:textSize="25sp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold|italic"></TextView>
 
                 <TextView
                     android:id="@+id/txt_pharmacy_phone1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:gravity="center"
                     android:shadowColor="@color/blue"
                     android:shadowRadius="10"
                     android:text="Phone Number One"
-                    android:textSize="20sp" />
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="normal|italic" />
 
                 <TextView
                     android:id="@+id/txt_pharmacy_phone2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:gravity="center"
                     android:shadowColor="@color/blue"
                     android:shadowRadius="10"
                     android:text="Phone Number Two"
-                    android:textSize="20sp" />
+                    android:textColor="@color/colorwhite"
+                    android:textSize="22sp"
+                    android:textStyle="normal|italic" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -90,7 +97,7 @@
                             android:shadowRadius="2"
                             android:text="location"
                             android:textColor="@color/blue"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             app:backgroundTint="@color/white"
                             app:cornerRadius="10dp" />
                     </com.balysv.materialripple.MaterialRippleLayout>
@@ -114,17 +121,18 @@
                             android:shadowRadius="2"
                             android:text="changeIphoto"
                             android:textColor="@color/blue"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             app:backgroundTint="@color/white"
                             app:cornerRadius="10dp" />
                     </com.balysv.materialripple.MaterialRippleLayout>
                 </LinearLayout>
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
                     android:elevation="20dp"
                     android:background="@color/white"
-                    app:cardCornerRadius="180dp"
+                    app:cardCornerRadius="150dp"
+                    android:layout_gravity="center"
                     >
 
                     <ImageView
@@ -134,7 +142,18 @@
                         android:background="@color/white"
                         android:src="@drawable/p3" />
                 </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/curave111"
+                    android:gravity="center"
+                    android:text="All Drugs Are Now Available In The Pharmacy"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold">
 
+                </TextView>
                 <androidx.recyclerview.widget.RecyclerView
 
                     android:id="@+id/recycle_view_parmacy_profile"
@@ -146,4 +165,6 @@
 
         </RelativeLayout>
     </ScrollView>
+
+
 </RelativeLayout>
