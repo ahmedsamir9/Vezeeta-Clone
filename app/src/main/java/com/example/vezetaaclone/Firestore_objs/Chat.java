@@ -4,12 +4,23 @@ public class Chat {
     private String sender;
     private String receiver;
     private String message;
+    private String LastMessage;
 
-    public Chat(String sender, String receiver, String message) {
+    public Chat(String sender, String receiver, String message, String LastMessage) {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
+        this.LastMessage = LastMessage;
     }
+
+    public String getLastMessage() {
+        return LastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        LastMessage = lastMessage;
+    }
+
     public Chat() {
 
     }

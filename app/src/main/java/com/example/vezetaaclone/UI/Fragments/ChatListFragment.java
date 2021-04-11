@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.vezetaaclone.Firestore_objs.Pharmacy;
 import com.example.vezetaaclone.Firestore_objs.User;
@@ -39,6 +41,8 @@ public class ChatListFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<User> userList;
     SharedPreferences sharedPref;
+    TextView noMessages;
+    ImageView noMessagesPic;
 
 
     @Override
@@ -51,6 +55,8 @@ public class ChatListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         userList = new ArrayList<>();
+        noMessages = view.findViewById(R.id.noMsgsText);
+        noMessagesPic = view.findViewById(R.id.noMsgsPic);
 
         readUsers();
         return view;
@@ -80,11 +86,22 @@ public class ChatListFragment extends Fragment {
                         //save user
                         User u = document.toObject(User.class);
                         userList.add(u);
+
                         Log.i("user List has", String.valueOf(userList.size()));
                     }
                 } else {
                     Log.d("TAG", "get failed with ", task.getException());
                 }
+                if (userList.size() == 0)
+                {
+                    noMessages.setVisibility(View.VISIBLE);
+                    noMessagesPic.setVisibility(View.VISIBLE);
+                }
+                else {
+                    noMessages.setVisibility(View.INVISIBLE);
+                    noMessagesPic.setVisibility(View.INVISIBLE);
+                }
+
                 ChatsAdapter chatsAdapter = new ChatsAdapter(getContext(), userList);
                 recyclerView.setAdapter(chatsAdapter);
             }

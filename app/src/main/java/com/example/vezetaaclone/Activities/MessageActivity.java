@@ -1,6 +1,5 @@
 package com.example.vezetaaclone.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,15 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vezetaaclone.Firestore_objs.Chat;
+import com.example.vezetaaclone.Firestore_objs.User;
 import com.example.vezetaaclone.R;
 import com.example.vezetaaclone.data.messagesAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -35,8 +31,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.squareup.picasso.Picasso;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,7 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageActivity extends AppCompatActivity {
 
-    CircleImageView profile_img ;
+    ImageView profile_img;
     TextView userText;
     EditText msg;
     ImageButton sendBtn;
@@ -59,6 +55,10 @@ public class MessageActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
     String reader;
     Calendar calendar ;
+    String lastMessage;
+    TextView noMsgs;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +83,8 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
         userText = findViewById(R.id.UserName);
+        profile_img = findViewById(R.id.profile_image);
+        noMsgs = findViewById(R.id.noChat);
         msg = findViewById(R.id.msgcontxt);
         sendBtn = findViewById(R.id.btn_send);
         intent = getIntent();
@@ -108,6 +110,7 @@ public class MessageActivity extends AppCompatActivity {
                 if (!(message.trim().length() <= 0))
                 {
                     SendMsg(message, user.getUid(), ClickedUserID, chatsFromTo, calendar);
+
                     msg.setText("");
                 }
                 else
@@ -116,20 +119,31 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+
+        String picPath = intent.getStringExtra("image");
+        Picasso.get().load(picPath).centerCrop().fit().into(profile_img);
         userText.setText(name);
+
+
         readMsg(chatsFromTo);
 
+
     }
+
+
     private void SendMsg(String msg, String sender, String receiver, String chatsFromTo, Calendar calendar)
     {
+        String lastMessage = msg;
         calendar = Calendar.getInstance();
         Date date = calendar.getTime();
+        Date LastDate = date;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         HashMap<String, Object> XtoY = new HashMap<>();
         XtoY.put("sender", sender);
         XtoY.put("receiver", receiver);
-
+        XtoY.put("lastMessage", lastMessage);
+        XtoY.put("lastDate", LastDate);
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
@@ -141,6 +155,7 @@ public class MessageActivity extends AppCompatActivity {
                 collection("messages").add(hashMap);
         db.collection("chats").document(chatsFromTo)
                 .set(XtoY, SetOptions.merge());
+
 
 
     }
@@ -160,8 +175,15 @@ public class MessageActivity extends AppCompatActivity {
                     Chat chat =  QS.toObject(Chat.class);
                     {
                         mchat.add(chat);
+
                     }
                 }
+                if (mchat.size() == 0)
+                {
+                   noMsgs.setVisibility(View.VISIBLE);
+                }
+                else
+                    noMsgs.setVisibility(View.INVISIBLE);
                 Log.i("chatList has", String.valueOf(mchat.size()));
                 msgsAdapter = new messagesAdapter(MessageActivity.this, mchat);
                 chatView.setAdapter(msgsAdapter);

@@ -8,7 +8,6 @@ public class User {
     private String image;
 
 
-
     public User() {
     }
 
@@ -16,6 +15,7 @@ public class User {
         this.Email = Email;
         this.Phone = Phone;
         this.Name = fName;
+
     }
     public String getImage() {
         return image;
