@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,6 +35,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ChatListFragment extends Fragment {
@@ -52,7 +54,10 @@ public class ChatListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         recyclerView = view.findViewById(R.id.chatsReView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(manager);
+
 
         userList = new ArrayList<>();
         noMessages = view.findViewById(R.id.noMsgsText);
@@ -109,6 +114,7 @@ public class ChatListFragment extends Fragment {
 
     }
 
+
     void readUsers() {
 
 
@@ -129,6 +135,7 @@ public class ChatListFragment extends Fragment {
         Task checkReceiver = db.collection("chats").whereEqualTo("receiver", fuser.getUid()).get();
         Task<List<QuerySnapshot>> checkAll = Tasks.whenAllSuccess(checkSender, checkReceiver);
 
+
         checkAll.addOnSuccessListener(new OnSuccessListener<List<QuerySnapshot>>() {
             @Override
             public void onSuccess(List<QuerySnapshot> querySnapshots) {
@@ -143,6 +150,7 @@ public class ChatListFragment extends Fragment {
                             getUserByID(doc.getString("sender"));
 
                     }
+
                 }
 
 

@@ -23,7 +23,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
@@ -52,6 +54,7 @@ public class ChatsAdapter extends RecyclerView.Adapter <ChatsAdapter.ChatsViewHo
       public ImageView imageView;
       public TextView lastMsgView;
       public TextView lastTimeView;
+
       public ChatsViewHolder(View view)
       {
          super(view);
@@ -59,6 +62,7 @@ public class ChatsAdapter extends RecyclerView.Adapter <ChatsAdapter.ChatsViewHo
          imageView = view.findViewById(R.id.profile_image);
          lastMsgView = view.findViewById(R.id.lastMsg);
          lastTimeView = view.findViewById(R.id.timeView);
+
       }
    }
 
@@ -86,11 +90,11 @@ public class ChatsAdapter extends RecyclerView.Adapter <ChatsAdapter.ChatsViewHo
       FirebaseFirestore db = FirebaseFirestore.getInstance();
 
       DocumentReference docRef = db.collection("chats").document(chatID);
-      docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+      docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
          @Override
-         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-            if (task.isSuccessful()) {
-               DocumentSnapshot document = task.getResult();
+         public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+             {
+               DocumentSnapshot document = documentSnapshot;
                if (document.exists()) {
                   //Log.i("CHATID", chatID);
                   //setting last message view
@@ -103,7 +107,7 @@ public class ChatsAdapter extends RecyclerView.Adapter <ChatsAdapter.ChatsViewHo
 
                   }
                   else
-                  holder.lastMsgView.setText(lastMessage);
+                     holder.lastMsgView.setText(lastMessage);
 
                   //setting last date view
                   Date lastMsgTime = (Date) document.get("lastDate");
@@ -114,11 +118,12 @@ public class ChatsAdapter extends RecyclerView.Adapter <ChatsAdapter.ChatsViewHo
                   holder.lastMsgView.setText("");
                   holder.lastTimeView.setText("");
                }
-            } else {
-               Log.d("last message info", "get failed with ", task.getException());
+
             }
          }
       });
+
+
 
       if(pharmacy.getImage()!=null)
          Picasso.get().load(pharmacy.getImage()).centerCrop().fit().into(holder.imageView);

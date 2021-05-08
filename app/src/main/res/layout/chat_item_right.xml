@@ -5,15 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp">
+
     <RelativeLayout
+        android:id="@+id/messageItem"
         android:layout_width="300dp"
-        android:layout_alignParentEnd="true"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp">
+
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/profile_image"
             android:visibility="gone"></de.hdodenhof.circleimageview.CircleImageView>
 
         <TextView

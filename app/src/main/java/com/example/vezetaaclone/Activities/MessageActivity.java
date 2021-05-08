@@ -59,6 +59,7 @@ public class MessageActivity extends AppCompatActivity {
     TextView noMsgs;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +88,7 @@ public class MessageActivity extends AppCompatActivity {
         noMsgs = findViewById(R.id.noChat);
         msg = findViewById(R.id.msgcontxt);
         sendBtn = findViewById(R.id.btn_send);
+
         intent = getIntent();
         String ClickedUserID = intent.getStringExtra("id");
         String name = intent.getStringExtra("Name");
@@ -182,8 +184,9 @@ public class MessageActivity extends AppCompatActivity {
                 {
                    noMsgs.setVisibility(View.VISIBLE);
                 }
-                else
+                else {
                     noMsgs.setVisibility(View.INVISIBLE);
+                }
                 Log.i("chatList has", String.valueOf(mchat.size()));
                 msgsAdapter = new messagesAdapter(MessageActivity.this, mchat);
                 chatView.setAdapter(msgsAdapter);
@@ -192,4 +195,5 @@ public class MessageActivity extends AppCompatActivity {
 
 
     }
+
 }
