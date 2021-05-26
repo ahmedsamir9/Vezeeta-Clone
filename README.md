@@ -13,7 +13,7 @@
 
 
 ## Description
----
+
 
 Syringe is an android application built with Java. It is the place to connect patients with pharamcies.
 
