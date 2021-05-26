@@ -29,7 +29,18 @@
 
 ---
 
-### Search for medicines and add them to cart. Medicines are retrived from openFDA API. [Click here for the documentation](https://open.fda.gov/apis/)
+### Pick your pharmacy lacation from Google maps.
+
+
+<p align="middle">
+ <img src="https://user-images.githubusercontent.com/57041674/119726505-7b0d8e80-be71-11eb-99d7-39922386f29c.png" width="300" height="500">
+ <img src="https://user-images.githubusercontent.com/57041674/119726722-b3ad6800-be71-11eb-8d2c-7b2470b73814.png" width="300" height="500">
+ <img src="https://user-images.githubusercontent.com/57041674/119726748-bdcf6680-be71-11eb-9931-de409afc67d2.png" width="300" height="500">
+</p>
+
+---
+
+### Search for medicines and add them to cart. Medicines are retrived from [openFDA API.](https://open.fda.gov/apis/)
 
 <p align="middle">
  <img src="https://user-images.githubusercontent.com/57041674/119544526-14fe0a00-bd92-11eb-8ce0-6efb341c3310.png" width="300" height="500">
