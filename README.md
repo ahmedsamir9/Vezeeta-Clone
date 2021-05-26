@@ -43,8 +43,9 @@
 ### Search for medicines and add them to cart. Medicines are retrived from [openFDA API.](https://open.fda.gov/apis/)
 
 <p align="middle">
- <img src="https://user-images.githubusercontent.com/57041674/119544526-14fe0a00-bd92-11eb-8ce0-6efb341c3310.png" width="300" height="500">
- <img src="https://user-images.githubusercontent.com/57041674/119544711-44147b80-bd92-11eb-8164-a25141f3c56c.png" width="375" height="625">
+ <img src="https://user-images.githubusercontent.com/57041674/119727016-17379580-be72-11eb-8dda-9b7f7699e566.png" width="300" height="500">
+ <img src="https://user-images.githubusercontent.com/57041674/119727064-2880a200-be72-11eb-999b-97a25ad33dee.png" width="300" height="500">
+ <img src="https://user-images.githubusercontent.com/57041674/119727164-451cda00-be72-11eb-9be5-ee9aee131d55.png" width="300" height="500">
 </p>
 
 - Interact with other users by following, chatting and seeing their posts and Lists, View mutual Movies and books.
