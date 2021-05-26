@@ -1,13 +1,12 @@
 # Syrine Repo
 ---
-
 <p align="middle">
  <img src="https://user-images.githubusercontent.com/57041674/119721949-10a61f80-be6c-11eb-9adf-b8ac8e5b86a0.png" width="300" height="350">
 </p>
 
 
 ### Table of Contents
----
+
 - [Description](#description)
 - [Topics used for implementation](#topics-used-for-implementation)
 
@@ -18,7 +17,7 @@
 Syringe is an android application built with Java. It is the place to connect patients with pharamcies.
 
 ### Login, Signup as a user and Signup as a Pharmacy.
----
+
 <p align="middle">
  <img src="https://user-images.githubusercontent.com/57041674/119722716-e739c380-be6c-11eb-946b-f7619ef76094.png" width="300" height="500">
  <img src="https://user-images.githubusercontent.com/57041674/119722766-f587df80-be6c-11eb-91ca-70c5c55de203.png" width="300" height="500">
@@ -27,7 +26,6 @@ Syringe is an android application built with Java. It is the place to connect pa
 
 
 ### Search for medicines and add them to cart. Medicines are retrived from openFDA API. [Click here for the documentation](https://open.fda.gov/apis/)
----
 
 <p align="middle">
  <img src="https://user-images.githubusercontent.com/57041674/119544526-14fe0a00-bd92-11eb-8ce0-6efb341c3310.png" width="300" height="500">
