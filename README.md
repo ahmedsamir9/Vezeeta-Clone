@@ -46,18 +46,26 @@
  <img src="https://user-images.githubusercontent.com/57041674/119727164-451cda00-be72-11eb-9be5-ee9aee131d55.png" width="320" height="550">
 </p>
 
-- Interact with other users by following, chatting and seeing their posts and Lists, View mutual Movies and books.
+---
+
+### View Profile of pharamacies and their location.
+
 <p align="middle">
- <img src="https://user-images.githubusercontent.com/57041674/119545223-dddc2880-bd92-11eb-9529-c10e9988614b.png" width="375" height="625">
- <img src="https://user-images.githubusercontent.com/57041674/119545283-efbdcb80-bd92-11eb-98ca-a84aa9f40258.png" width="375" height="625">
+ <img src="https://user-images.githubusercontent.com/57041674/119727016-17379580-be72-11eb-8dda-9b7f7699e566.png" width="320" height="550">
+ <img src="https://user-images.githubusercontent.com/57041674/119727064-2880a200-be72-11eb-999b-97a25ad33dee.png" width="320" height="550">
+ <img src="https://user-images.githubusercontent.com/57041674/119727164-451cda00-be72-11eb-9be5-ee9aee131d55.png" width="320" height="550">
 </p>
 
-- Post about a Movie or a Book, Interact with other posts by Liking and commenting.
+---
+
+### Contact Pharamacies.
 
 <p align="middle">
  <img src="https://user-images.githubusercontent.com/57041674/119546464-3c55d680-bd94-11eb-93f6-7991805aa345.png" width="375" height="625">
  <img src="https://user-images.githubusercontent.com/57041674/119546528-4bd51f80-bd94-11eb-9eda-49c10802fb03.png" width="375" height="625">
 </p>
+
+---
 
 
 #### Topics used for implementation
