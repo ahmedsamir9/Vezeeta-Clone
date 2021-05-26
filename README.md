@@ -14,7 +14,7 @@
 ## Description
 
 
-Syringe is an android application built with Java. It is the place to connect patients with pharamcies.
+- Syringe is an android application built with Java. It is the place to connect patients with pharamcies.
 ---
 
 ### Login, Signup as a user and Signup as a Pharmacy.
