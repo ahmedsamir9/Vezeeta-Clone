@@ -31,9 +31,9 @@
 
 
 <p align="middle">
- <img src="https://user-images.githubusercontent.com/57041674/119726505-7b0d8e80-be71-11eb-99d7-39922386f29c.png" width="300" height="500">
- <img src="https://user-images.githubusercontent.com/57041674/119726722-b3ad6800-be71-11eb-8d2c-7b2470b73814.png" width="300" height="500">
- <img src="https://user-images.githubusercontent.com/57041674/119726748-bdcf6680-be71-11eb-9931-de409afc67d2.png" width="300" height="500">
+ <img src="https://user-images.githubusercontent.com/57041674/119726505-7b0d8e80-be71-11eb-99d7-39922386f29c.png" width="250" height="430">
+ <img src="https://user-images.githubusercontent.com/57041674/119726722-b3ad6800-be71-11eb-8d2c-7b2470b73814.png" width="250" height="430">
+ <img src="https://user-images.githubusercontent.com/57041674/119726748-bdcf6680-be71-11eb-9931-de409afc67d2.png" width="250" height="430">
 </p>
 
 ---
@@ -41,9 +41,9 @@
 ### Search for medicines and add them to cart. Medicines are retrived from [openFDA API.](https://open.fda.gov/apis/)
 
 <p align="middle">
- <img src="https://user-images.githubusercontent.com/57041674/119727016-17379580-be72-11eb-8dda-9b7f7699e566.png" width="300" height="500">
- <img src="https://user-images.githubusercontent.com/57041674/119727064-2880a200-be72-11eb-999b-97a25ad33dee.png" width="300" height="500">
- <img src="https://user-images.githubusercontent.com/57041674/119727164-451cda00-be72-11eb-9be5-ee9aee131d55.png" width="300" height="500">
+ <img src="https://user-images.githubusercontent.com/57041674/119727016-17379580-be72-11eb-8dda-9b7f7699e566.png" width="250" height="430">
+ <img src="https://user-images.githubusercontent.com/57041674/119727064-2880a200-be72-11eb-999b-97a25ad33dee.png" width="250" height="430">
+ <img src="https://user-images.githubusercontent.com/57041674/119727164-451cda00-be72-11eb-9be5-ee9aee131d55.png" width="250" height="430">
 </p>
 
 ---
