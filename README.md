@@ -17,7 +17,6 @@
 
 - Syringe is an android application built with Java. It is the place to connect patients with pharamcies.
 ---
-
 ### Login, Signup as a user and Signup as a Pharmacy.
 
 
@@ -28,7 +27,6 @@
 </p>
 
 ---
-
 ### Pick your pharmacy lacation from Google maps.
 
 
