@@ -6,13 +6,13 @@
 
 ---
 
-### Table of Contents
+### Table of Contents.
 
 
 - [Description](#description)
 - [Topics used for implementation](#topics-used-for-implementation)
 ---
-## Description
+## Description.
 
 
 - Syringe is an android application built with Java. It is the place to connect patients with pharamcies.
@@ -38,7 +38,7 @@
 
 ---
 
-### Search for medicines and add them to cart. Medicines are retrived from [openFDA API.](https://open.fda.gov/apis/)
+### Search for medicines and add them to cart. Medicines are retrieved from [openFDA API.](https://open.fda.gov/apis/)
 
 <p align="middle">
  <img src="https://user-images.githubusercontent.com/57041674/119727016-17379580-be72-11eb-8dda-9b7f7699e566.png" width="250" height="430">
@@ -48,7 +48,7 @@
 
 ---
 
-### View Profile of pharamacies and their location.
+### View Profile of pharmacies and their location.
 
 <p align="middle">
 
@@ -56,7 +56,7 @@
 
 ---
 
-### Contact Pharamacies.
+### Contact Pharmacies.
 
 <p align="middle">
 
@@ -65,7 +65,7 @@
 ---
 
 
-#### Topics used for implementation
+#### Topics used for implementation.
 
 - androidx
 - MVVM
@@ -73,5 +73,4 @@
 - Firebase Firestore
 - Firebase Auth
 - Material Design
-- pagination
 - navigation component
