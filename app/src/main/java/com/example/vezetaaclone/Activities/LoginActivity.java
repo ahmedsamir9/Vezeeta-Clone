@@ -67,14 +67,16 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(sharedPref.getString("type",null)!=null)
                             if (sharedPref.getString("type",null).equals("user")) {
+                                mProgress.dismiss();
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 finish();
                             }
                             else if(sharedPref.getString("type",null).equals("pharmacy")) {
+                                mProgress.dismiss();
                                 startActivity(new Intent(getApplicationContext(), Pharmacyactivity.class));
                                 finish();
                             }
-                        mProgress.hide();
+
 
                         }
                     mProgress.hide();

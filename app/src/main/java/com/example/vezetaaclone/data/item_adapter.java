@@ -52,7 +52,7 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.MyHolderView
     private LinearLayout overBox;
     float r;
     private TextView labeler_name,description,ingredients,type;
-    DatabaseReference ref=FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/").getReference().child("CartList");
+    DatabaseReference ref=FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/").getReference().child("Cart");
     DatabaseReference refP=FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/").getReference().child("PriceList");
     DatabaseReference refI=FirebaseDatabase.getInstance("https://vezetaaclone-default-rtdb.firebaseio.com/").getReference().child("ImageList");
     Random rand = new Random();

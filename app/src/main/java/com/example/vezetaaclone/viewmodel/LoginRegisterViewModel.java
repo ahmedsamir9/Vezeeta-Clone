@@ -32,7 +32,8 @@ public class LoginRegisterViewModel extends AndroidViewModel{
 
         }
 
-         public void login(String email, String password) {
+         public void login(String email, String password)
+         {
             authAppRepository.login(email, password);
         }
 
@@ -51,8 +52,10 @@ public class LoginRegisterViewModel extends AndroidViewModel{
                 success = false;
                 Toast.makeText(getApplication().getApplicationContext(), "the password must be greater than 6 character !", Toast.LENGTH_SHORT).show();
             }
+
             if(success)
             authAppRepository.register(email, password,patient);
+
         }
     public void registerpharma(String email, String password, Pharmacy pharma) {
         boolean success = true;
@@ -81,7 +84,8 @@ public class LoginRegisterViewModel extends AndroidViewModel{
             authAppRepository.resetpass(email);
     }
 
-    public MutableLiveData<FirebaseUser> getUserLiveData() {
+    public MutableLiveData<FirebaseUser> getUserLiveData()
+    {
             return userLiveData;
         }
     public MutableLiveData<String> getType() {

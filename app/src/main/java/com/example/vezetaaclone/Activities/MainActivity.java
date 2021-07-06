@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new CartFragment();
                             break;
                         case R.id.page_4:
-                            tv.setText("More");
+                            tv.setText("Options");
                             selectedFragment = new moreFragment();
                             break;
                         case R.id.page_5:

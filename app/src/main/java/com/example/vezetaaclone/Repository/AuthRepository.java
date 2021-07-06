@@ -54,7 +54,8 @@ public class AuthRepository {
         editor = pref.edit();
         this.Type = new MutableLiveData<>();
         Type.setValue("not set");
-        if (firebaseAuth.getCurrentUser() != null) {
+        if (firebaseAuth.getCurrentUser() != null)
+        {
             userLiveData.postValue(firebaseAuth.getCurrentUser());
             loggedOutLiveData.postValue(false);
         }

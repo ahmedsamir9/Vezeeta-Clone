@@ -21,6 +21,7 @@ import com.example.vezetaaclone.Firestore_objs.User;
 import com.example.vezetaaclone.R;
 import com.example.vezetaaclone.data.ChatsAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -41,6 +42,7 @@ public class ChatListFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<User> userList;
     SharedPreferences sharedPref;
+    private static final String TAG = "MyActivity";
     TextView noMessages;
     ImageView noMessagesPic;
 
@@ -125,8 +127,8 @@ public class ChatListFragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         //tasks
-        Task checkSender = db.collection("chats").whereEqualTo("sender", fuser.getUid()).get();
-        Task checkReceiver = db.collection("chats").whereEqualTo("receiver", fuser.getUid()).get();
+        Task checkSender = db.collection("chats").whereEqualTo("sender", fuser.getUid()).orderBy("lastDate").get();
+        Task checkReceiver = db.collection("chats").whereEqualTo("receiver", fuser.getUid()).orderBy("lastDate").get();
         Task<List<QuerySnapshot>> checkAll = Tasks.whenAllSuccess(checkSender, checkReceiver);
 
         checkAll.addOnSuccessListener(new OnSuccessListener<List<QuerySnapshot>>() {
@@ -146,6 +148,11 @@ public class ChatListFragment extends Fragment {
                 }
 
 
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,e.getMessage());
             }
         });
 

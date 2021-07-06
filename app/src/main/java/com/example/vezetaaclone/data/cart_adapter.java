@@ -50,6 +50,10 @@ public class cart_adapter extends RecyclerView.Adapter<cart_adapter.MyHolderView
 
     @Override
     public void onBindViewHolder(@NonNull MyHolderView holder, int position) {
+        int top = 16;
+        int bottom = 16;
+        int left = 20;
+        int right = 20;
         String mCurrent = data.get(position).getGenericName();
         holder.wordItemView.setText(mCurrent);
         holder.ItemPrice.setText(CartData.prices.get(data.get(position).getProductId()));
@@ -87,9 +91,9 @@ public class cart_adapter extends RecyclerView.Adapter<cart_adapter.MyHolderView
                 }
             }
         });
-
-
-
+        ViewGroup.MarginLayoutParams marginLayoutParams = new ViewGroup.MarginLayoutParams(holder.itemView.getLayoutParams());
+        marginLayoutParams.setMargins(left,top,right,bottom);
+        holder.itemView.setLayoutParams(marginLayoutParams);
 
     }
 
@@ -137,5 +141,7 @@ public class cart_adapter extends RecyclerView.Adapter<cart_adapter.MyHolderView
             add= AnimationUtils.loadAnimation(context, R.anim.rotate_open_anim);
             cancel= AnimationUtils.loadAnimation(context, R.anim.rotate_close_anim);
         }
+
+
     }
 }
