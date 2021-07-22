@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -55,9 +56,9 @@ public class MessageActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
     String reader;
     Calendar calendar ;
+    ListenerRegistration registration = null;
     String lastMessage;
     TextView noMsgs;
-
 
 
     @Override
@@ -88,7 +89,6 @@ public class MessageActivity extends AppCompatActivity {
         noMsgs = findViewById(R.id.noChat);
         msg = findViewById(R.id.msgcontxt);
         sendBtn = findViewById(R.id.btn_send);
-
         intent = getIntent();
         String ClickedUserID = intent.getStringExtra("id");
         String name = intent.getStringExtra("Name");
@@ -108,6 +108,7 @@ public class MessageActivity extends AppCompatActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String message = msg.getText().toString();
                 if (!(message.trim().length() <= 0))
                 {
@@ -132,6 +133,14 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(registration!=null)
+        {
+            registration.remove();
+        }
+    }
 
     private void SendMsg(String msg, String sender, String receiver, String chatsFromTo, Calendar calendar)
     {
@@ -168,32 +177,31 @@ public class MessageActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Query docRef = db.collection("chats").document(location).
                 collection("messages").orderBy("time", Query.Direction.ASCENDING);
-        docRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+         registration = docRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
-                mchat.clear();
-                for (QueryDocumentSnapshot QS : queryDocumentSnapshots)
-                {
-                    Chat chat =  QS.toObject(Chat.class);
-                    {
-                        mchat.add(chat);
+                if (e != null) {
+                    Log.d("PharamaciesFrag", "Error:" + e.getMessage());
+                } else {
+                    mchat.clear();
+                    for (QueryDocumentSnapshot QS : queryDocumentSnapshots) {
+                        Chat chat = QS.toObject(Chat.class);
+                        {
+                            mchat.add(chat);
 
+                        }
                     }
+                    if (mchat.size() == 0) {
+                        noMsgs.setVisibility(View.VISIBLE);
+                    } else
+                        noMsgs.setVisibility(View.INVISIBLE);
+                    Log.i("chatList has", String.valueOf(mchat.size()));
+                    msgsAdapter = new messagesAdapter(MessageActivity.this, mchat);
+                    chatView.setAdapter(msgsAdapter);
                 }
-                if (mchat.size() == 0)
-                {
-                   noMsgs.setVisibility(View.VISIBLE);
-                }
-                else {
-                    noMsgs.setVisibility(View.INVISIBLE);
-                }
-                Log.i("chatList has", String.valueOf(mchat.size()));
-                msgsAdapter = new messagesAdapter(MessageActivity.this, mchat);
-                chatView.setAdapter(msgsAdapter);
             }
         });
 
 
     }
-
 }

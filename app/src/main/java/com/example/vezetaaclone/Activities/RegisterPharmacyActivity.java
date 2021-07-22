@@ -52,6 +52,7 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
     private LoginRegisterViewModel loginRegisterViewModel;
     private EditText get_place;
     int PLACE_PICKER_REQUEST=1;
+    Intent intent;
     Activity activity;
     Place place;
 
@@ -59,9 +60,6 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity=this;
-
-
-
         setContentView(R.layout.activity_register_pharmacy);
         Pharmacy_Name1 = findViewById(R.id.Pharmacy_Name);
         Pharmacy_Email1 = findViewById(R.id.Pharmacy_Email);
@@ -71,20 +69,22 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
         Pharmacy_login = findViewById(R.id.Pharmacy_LoginHere);
         Ph_btn_register = findViewById(R.id.Pharmacy_btn_register);
         get_place=findViewById(R.id.location);
-
+        PlacePicker.IntentBuilder builder=new PlacePicker.IntentBuilder();
+        try {
+            intent=builder.build(activity);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
         get_place.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlacePicker.IntentBuilder builder=new PlacePicker.IntentBuilder();
-                Intent intent;
-                try {
-                    intent=builder.build(activity);
+
+
+
                     startActivityForResult(intent,PLACE_PICKER_REQUEST);
-                }
-                catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e)
-                {
-                    e.printStackTrace();
-                }
+
 
 
 
@@ -132,6 +132,7 @@ public class RegisterPharmacyActivity extends AppCompatActivity {
         {
             if(resultCode==RESULT_OK)
             {
+                if(data!=null)
                 place=PlacePicker.getPlace(this,data);
                 Geocoder geocoder;
                 List<Address> addresses;

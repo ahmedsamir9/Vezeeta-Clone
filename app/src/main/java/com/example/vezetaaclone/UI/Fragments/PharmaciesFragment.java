@@ -24,6 +24,7 @@ import com.example.vezetaaclone.pojo.Result;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -45,6 +46,7 @@ public class PharmaciesFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String mParam1;
+    ListenerRegistration registration = null;
     private String mParam2;
     private EditText ET;
     private RecyclerView rv;
@@ -114,6 +116,13 @@ public class PharmaciesFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(registration!=null)
+        registration.remove();
+    }
+
     private void filter(String text){
         ArrayList<User>filted_list=new ArrayList<User>();
         for(User item:pharmacies){
@@ -136,30 +145,24 @@ public class PharmaciesFragment extends Fragment {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
-                        pharmacies.clear();
+                        if (e != null) {
+                            Log.d("PharamaciesFrag", "Error:" + e.getMessage());
+                        } else {
+                            pharmacies.clear();
 
-                        for (QueryDocumentSnapshot doc : value) {
+                            for (QueryDocumentSnapshot doc : value) {
 
-                            Pharmacy u = doc.toObject(Pharmacy.class);
+                                Pharmacy u = doc.toObject(Pharmacy.class);
 
-                            pharmacies.add(u);
+                                pharmacies.add(u);
 
+                            }
+
+                            Log.i("user List has:", String.valueOf(pharmacies.size()));
+                            chatsAdapter = new PharmaciesAdapter(getContext(), pharmacies);
+                            rv.setAdapter(chatsAdapter);
                         }
-
-                        Log.i("user List has:",String.valueOf(pharmacies.size()) );
-                         chatsAdapter = new PharmaciesAdapter(getContext(), pharmacies);
-                        rv.setAdapter(chatsAdapter);
                     }
                 });
-
-
-
-
-
-
-
-
-
-
     }
 }

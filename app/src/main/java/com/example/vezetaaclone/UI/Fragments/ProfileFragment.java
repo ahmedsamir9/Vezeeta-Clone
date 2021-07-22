@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.webkit.MimeTypeMap;
@@ -82,7 +83,7 @@ import static com.example.vezetaaclone.RegisterActivity.TAG;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment  {
-
+    private Animation animationName,animationPhone1,animationPhone2;
     private TextView txtName,txtPhone1,txtPhone2;
     private ImageView imageView;
     private RecyclerView recyclerView;
@@ -146,21 +147,31 @@ public class ProfileFragment extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         txtName = view.findViewById(R.id.txt_pharmacy_name);
+        animationName= AnimationUtils.loadAnimation(getContext(),R.anim.scale);
+        txtName.setAnimation(animationName);
+
+
         txtPhone1 = view.findViewById(R.id.txt_pharmacy_phone1);
-        Folder = FirebaseStorage.getInstance().getReference("Images");
+        animationPhone1= AnimationUtils.loadAnimation(getContext(),R.anim.transation);
+        txtPhone1.setAnimation(animationPhone1);
+
         txtPhone2 = view.findViewById(R.id.txt_pharmacy_phone2);
+        animationPhone2= AnimationUtils.loadAnimation(getContext(),R.anim.alpha);
+        txtPhone2.setAnimation(animationPhone2);
+
+        Folder = FirebaseStorage.getInstance().getReference("Images");
         imageView= view.findViewById(R.id.img_view_parmacy_profile);
         recyclerView=view.findViewById(R.id.recycle_view_parmacy_profile);
         btnShowLocation=view.findViewById(R.id.btn_location_phamacy_profile);
         btnChangeImage=view.findViewById(R.id.btn_change_imge_pharmacy_profile);
 
         //FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
-         fstore = FirebaseFirestore.getInstance();
+        fstore = FirebaseFirestore.getInstance();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-         id = firebaseAuth.getCurrentUser().getUid();
+        id = firebaseAuth.getCurrentUser().getUid();
         if(getArguments()!=null)
         {
-           id =  getArguments().getString("ID");
+            id =  getArguments().getString("ID");
             btnChangeImage.setText("Contact");
         }
         DocumentReference docRef = fstore.collection("PharmacyUsers")
@@ -168,13 +179,13 @@ public class ProfileFragment extends Fragment  {
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                txtName.setText("Name Parmacy Is "+documentSnapshot.getString("name"));
-                txtPhone1.setText("Frist Phone Parmacy :  "+documentSnapshot.getString("phone"));
-                txtPhone2.setText("Second Phone Parmacy :  "+documentSnapshot.getString("secondPhone"));
+                txtName.setText(documentSnapshot.getString("name"));
+                txtPhone1.setText("+2"+documentSnapshot.getString("phone"));
+                txtPhone2.setText("+2"+documentSnapshot.getString("secondPhone"));
                 name = documentSnapshot.getString("name");
                 if(documentSnapshot.getString("image")!=null)
-                Picasso.get().load(documentSnapshot.getString("image")).fit().centerCrop()
-                        .into(imageView);
+                    Picasso.get().load(documentSnapshot.getString("image")).fit().centerCrop()
+                            .into(imageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -201,8 +212,13 @@ public class ProfileFragment extends Fragment  {
                         cardDrugPharmacyAdpter.setlist(drugsList);
                     }
                 });
+
+
+
         recyclerView.setAdapter(cardDrugPharmacyAdpter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setFocusable(false);
+        recyclerView.setNestedScrollingEnabled(false);
         controller=null;
         context=recyclerView.getContext();
         controller= AnimationUtils.loadLayoutAnimation(context,R.anim.layout_animation_fail_down);
@@ -253,7 +269,7 @@ public class ProfileFragment extends Fragment  {
             @Override
             public void onClick(View view) {
                 if(getArguments()==null)
-                filechooser();
+                    filechooser();
                 else
                 {
                     Intent intent = new Intent(getContext(), MessageActivity.class);

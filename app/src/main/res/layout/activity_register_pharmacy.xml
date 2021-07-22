@@ -88,7 +88,6 @@
         android:layout_marginRight="16dp"
         android:editable="false"
         android:hint="Location"
-
         />
     /
 
