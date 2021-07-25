@@ -1,10 +1,11 @@
 package com.example.vezetaaclone.UI.Fragments;
 
 import android.content.SharedPreferences;
+import android.graphics.Path;
+import android.icu.text.RelativeDateTimeFormatter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,27 +17,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.vezetaaclone.Firestore_objs.Pharmacy;
 import com.example.vezetaaclone.Firestore_objs.User;
 import com.example.vezetaaclone.R;
 import com.example.vezetaaclone.data.ChatsAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class ChatListFragment extends Fragment {
@@ -44,7 +39,6 @@ public class ChatListFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<User> userList;
     SharedPreferences sharedPref;
-    private static final String TAG = "MyActivity";
     TextView noMessages;
     ImageView noMessagesPic;
 
@@ -66,6 +60,7 @@ public class ChatListFragment extends Fragment {
         noMessagesPic = view.findViewById(R.id.noMsgsPic);
 
         readUsers();
+        showOnNoneUsers();
         return view;
     }
 
@@ -78,12 +73,12 @@ public class ChatListFragment extends Fragment {
     public void getUserByID(String id) {
         //deciding collection
         String collection = "PharmacyUsers";
-        sharedPref = getActivity().getSharedPreferences("type", 0);
-        String type = sharedPref.getString("type", "DEFAULT");
+        String type = getType();
         if (type.equals("pharmacy"))
             collection = "users";
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         db.collection(collection).document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -93,20 +88,10 @@ public class ChatListFragment extends Fragment {
                         //save user
                         User u = document.toObject(User.class);
                         userList.add(u);
-
                         Log.i("user List has", String.valueOf(userList.size()));
                     }
                 } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-                if (userList.size() == 0)
-                {
-                    noMessages.setVisibility(View.VISIBLE);
-                    noMessagesPic.setVisibility(View.VISIBLE);
-                }
-                else {
-                    noMessages.setVisibility(View.INVISIBLE);
-                    noMessagesPic.setVisibility(View.INVISIBLE);
+                    Log.i("TAG", "get failed with ", task.getException());
                 }
 
                 ChatsAdapter chatsAdapter = new ChatsAdapter(getContext(), userList);
@@ -117,54 +102,54 @@ public class ChatListFragment extends Fragment {
     }
 
 
+
     void readUsers() {
-
-
-        //deciding collection
-        String collection = "PharmacyUsers";
-        sharedPref = getActivity().getSharedPreferences("type", 0);
-        String type = sharedPref.getString("type", "DEFAULT");
-        if (type.equals("pharmacy"))
-            collection = "users";
-
+        String type = getType();
 
         //filtering users
         FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         //tasks
-        Task checkSender = db.collection("chats").whereEqualTo("sender", fuser.getUid()).orderBy("lastDate").get();
-        Task checkReceiver = db.collection("chats").whereEqualTo("receiver", fuser.getUid()).orderBy("lastDate").get();
-        Task<List<QuerySnapshot>> checkAll = Tasks.whenAllSuccess(checkSender, checkReceiver);
+        Task<QuerySnapshot> wantedUsers = db.collection("chats").whereEqualTo("sender", fuser.getUid())
+                //order by
+                .get();
+
+        if (type.equals("pharmacy"))
+             wantedUsers = db.collection("chats").whereEqualTo("receiver", fuser.getUid())
+                     //order by
+                    .get();
 
 
-        checkAll.addOnSuccessListener(new OnSuccessListener<List<QuerySnapshot>>() {
+        wantedUsers.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(List<QuerySnapshot> querySnapshots) {
-
+            public void onSuccess(QuerySnapshot querySnapshot) {
                 userList.clear();
-
-                for (QuerySnapshot value : querySnapshots) {
-                    for (QueryDocumentSnapshot doc : value) {
-                        if (fuser.getUid().equals(doc.getString("sender")))
-                            getUserByID(doc.getString("receiver"));
-                        else
+                    for (QueryDocumentSnapshot doc : querySnapshot) {
+                        if  (type.equals("pharmacy"))
                             getUserByID(doc.getString("sender"));
-
+                        else
+                            getUserByID(doc.getString("receiver"));
                     }
-
-                }
-
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG,e.getMessage());
             }
         });
 
+    }
 
+     void showOnNoneUsers()
+    {
+        if (userList.size() > 0)
+        {
+            noMessages.setVisibility(View.INVISIBLE);
+            noMessagesPic.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+    private String getType(){
+        sharedPref = getActivity().getSharedPreferences("type", 0);
+        String type = sharedPref.getString("type", "DEFAULT");
+        return type;
     }
 }
 

@@ -34,10 +34,12 @@ public messagesAdapter(Context chatContext, List<Chat> mChat)
 public class ChatsViewHolder extends RecyclerView.ViewHolder{
 
     public TextView showmessage;
+    public TextView showTime;
     public ChatsViewHolder(View view)
     {
         super(view);
         showmessage = view.findViewById(R.id.show_msg);
+        showTime = view.findViewById(R.id.timeView);
     }
 }
 

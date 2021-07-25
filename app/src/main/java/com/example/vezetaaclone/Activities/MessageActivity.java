@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vezetaaclone.Firestore_objs.Chat;
-import com.example.vezetaaclone.Firestore_objs.User;
 import com.example.vezetaaclone.R;
 import com.example.vezetaaclone.data.messagesAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,8 +38,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -93,18 +90,17 @@ public class MessageActivity extends AppCompatActivity {
         String ClickedUserID = intent.getStringExtra("id");
         String name = intent.getStringExtra("Name");
         user = FirebaseAuth.getInstance().getCurrentUser();
-        String chatsFromTo;
 
 
-        sharedPref = getSharedPreferences("type",0);
-        String type = sharedPref.getString("type", "DEFAULT");
+        //generating chat ID
+        String chatsFromTo = ClickedUserID + user.getUid(); ;
+        String type = getType();
+
         if (type.equals("user"))
             chatsFromTo = user.getUid() + ClickedUserID;
-        else
-            chatsFromTo = ClickedUserID + user.getUid();
 
 
-
+        String finalChatsFromTo = chatsFromTo;
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +108,7 @@ public class MessageActivity extends AppCompatActivity {
                 String message = msg.getText().toString();
                 if (!(message.trim().length() <= 0))
                 {
-                    SendMsg(message, user.getUid(), ClickedUserID, chatsFromTo, calendar);
+                    SendMsg(message, user.getUid(), ClickedUserID, finalChatsFromTo, calendar);
 
                     msg.setText("");
                 }
@@ -161,13 +157,10 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("message", msg);
         hashMap.put("time", date);
 
-
         db.collection("chats").document(chatsFromTo).
                 collection("messages").add(hashMap);
         db.collection("chats").document(chatsFromTo)
                 .set(XtoY, SetOptions.merge());
-
-
 
     }
 
@@ -191,17 +184,19 @@ public class MessageActivity extends AppCompatActivity {
 
                         }
                     }
-                    if (mchat.size() == 0) {
-                        noMsgs.setVisibility(View.VISIBLE);
-                    } else
-                        noMsgs.setVisibility(View.INVISIBLE);
+                    if (mchat.size() != 0)  noMsgs.setVisibility(View.INVISIBLE);
+
+
                     Log.i("chatList has", String.valueOf(mchat.size()));
                     msgsAdapter = new messagesAdapter(MessageActivity.this, mchat);
                     chatView.setAdapter(msgsAdapter);
                 }
             }
         });
-
-
+    }
+    private String getType(){
+        sharedPref = getSharedPreferences("type", 0);
+        String type = sharedPref.getString("type", "DEFAULT");
+        return type;
     }
 }

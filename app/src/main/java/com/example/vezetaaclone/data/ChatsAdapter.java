@@ -83,10 +83,13 @@ public class ChatsAdapter extends RecyclerView.Adapter <ChatsAdapter.ChatsViewHo
       SharedPreferences sharedPref;
       sharedPref = chatContext.getSharedPreferences("type",0);
       String type = sharedPref.getString("type", "DEFAULT");
+
+      chatID = pharmacy.getId() + user.getUid();
       if (type.equals("user"))
          chatID = user.getUid() + pharmacy.getId();
-      else
-         chatID = pharmacy.getId() + user.getUid();
+
+
+
       FirebaseFirestore db = FirebaseFirestore.getInstance();
 
       DocumentReference docRef = db.collection("chats").document(chatID);
@@ -99,6 +102,8 @@ public class ChatsAdapter extends RecyclerView.Adapter <ChatsAdapter.ChatsViewHo
                   //Log.i("CHATID", chatID);
                   //setting last message view
                   String lastMessage = document.get("lastMessage").toString();
+
+                  holder.lastMsgView.setText(lastMessage);
                   if (lastMessage.length() > 18)
                   {
                      String newLastMessage = lastMessage.substring(0,17);
@@ -106,8 +111,7 @@ public class ChatsAdapter extends RecyclerView.Adapter <ChatsAdapter.ChatsViewHo
                      holder.lastMsgView.setText(newLastMessage);
 
                   }
-                  else
-                     holder.lastMsgView.setText(lastMessage);
+
 
                   //setting last date view
                   Date lastMsgTime = (Date) document.get("lastDate");
@@ -122,6 +126,7 @@ public class ChatsAdapter extends RecyclerView.Adapter <ChatsAdapter.ChatsViewHo
             }
          }
       });
+
 
 
 

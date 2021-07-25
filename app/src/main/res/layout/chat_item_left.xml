@@ -22,4 +22,7 @@
         android:textSize="18sp"
         android:id="@+id/show_msg"
         ></TextView>
+
+
+
 </RelativeLayout>
