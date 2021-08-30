@@ -1,3 +1,5 @@
+![chatslist](https://user-images.githubusercontent.com/57041674/131396653-86753f91-4fae-483f-b8bc-f172be8ea05d.png)
+![chatslist](https://user-images.githubusercontent.com/57041674/131396675-d47f191f-4979-4c68-b6d8-3876c9de4f61.png)
 # Syrine Repo
 
 <p align="middle">
@@ -51,7 +53,8 @@
 ### View Profile of pharmacies and their location.
 
 <p align="middle">
-
+<img src="https://user-images.githubusercontent.com/57041674/131396864-8df1e4ce-ccc6-4770-b9fd-7a6e71a0e07b.png" width="250" height="430">
+<img src="https://user-images.githubusercontent.com/57041674/131396914-420aede5-3fc6-43a5-a83e-3c6c0a067506.png" width="250" height="430">
 </p>
 
 ---
@@ -59,7 +62,8 @@
 ### Contact Pharmacies.
 
 <p align="middle">
-
+<img src="https://user-images.githubusercontent.com/57041674/131396698-911d1d1e-e786-4246-ae51-d4c3906ccef3.png" width="250" height="430">
+<img src="https://user-images.githubusercontent.com/57041674/131396797-5bbb485d-1e0f-49cd-b0da-04ee821999b6.png" width="250" height="430">
 </p>
 
 ---
