@@ -1,5 +1,3 @@
-![chatslist](https://user-images.githubusercontent.com/57041674/131396653-86753f91-4fae-483f-b8bc-f172be8ea05d.png)
-![chatslist](https://user-images.githubusercontent.com/57041674/131396675-d47f191f-4979-4c68-b6d8-3876c9de4f61.png)
 # Syrine Repo
 
 <p align="middle">
